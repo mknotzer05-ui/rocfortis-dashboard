@@ -1,0 +1,1067 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RocFortis Signal — SEO &amp; GEO Lagebild</title>
+
+<style>
+/* ============================================================
+   ROCFORTIS SIGNAL
+   Vier Varianten tauschen ausschliesslich Tokens, nie Struktur.
+   ============================================================ */
+
+:root {
+  --font-display: Optima, "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px;
+
+  --radius: 12px;
+  --radius-sm: 7px;
+  --grain: 0.035;
+  --shadow: none;
+}
+
+/* ---- A · DOSSIER (dunkel, Mitternachtsblau + Messing) ---- */
+:root, :root[data-variant="dossier"] {
+  --ground: #0A1017;
+  --ground-2: #070C11;
+  --surface: #101A24;
+  --surface-2: #16222E;
+  --line: #1E2B38;
+  --line-strong: #2B3D4D;
+  --ink: #E8EEF4;
+  --ink-2: #8A9DAF;
+  --ink-3: #7F94A6;
+  --accent: #D3A84C;
+  --accent-soft: rgba(211,168,76,.14);
+  --on-accent: #0A1017;
+  --pos: #4FA88B;
+  --neg: #DB7C72;
+  --warn: #C99A3F;
+  --seo: #6FA8C7;
+  --geo: #D3A84C;
+  --grain: 0.04;
+}
+
+/* ---- B · CUPERTINO (hell, Frostglas) ---- */
+:root[data-variant="cupertino"] {
+  --ground: #F5F7F9;
+  --ground-2: #EDF0F3;
+  --surface: #FFFFFF;
+  --surface-2: #F2F5F7;
+  --line: #E1E7EC;
+  --line-strong: #CBD5DD;
+  --ink: #0B1219;
+  --ink-2: #5C6C7B;
+  --ink-3: #5E6B78;
+  --accent: #8A6714;
+  --accent-soft: rgba(138,103,20,.10);
+  --on-accent: #FFFFFF;
+  --pos: #2E7D63;
+  --neg: #B23A31;
+  --warn: #7E5C0C;
+  --seo: #2E6C8E;
+  --geo: #8A6714;
+  --radius: 16px;
+  --radius-sm: 9px;
+  --grain: 0;
+  --shadow: 0 1px 2px rgba(11,18,25,.05), 0 6px 20px rgba(11,18,25,.05);
+}
+
+/* ---- C · GUNMETAL (dunkel, monochrom, Radius 0) ---- */
+:root[data-variant="gunmetal"] {
+  --ground: #0D0F10;
+  --ground-2: #090A0B;
+  --surface: #15181A;
+  --surface-2: #1B1F21;
+  --line: #282D30;
+  --line-strong: #3A4145;
+  --ink: #EDEFF0;
+  --ink-2: #8B9296;
+  --ink-3: #8A9195;
+  --accent: #DDE2E5;
+  --accent-soft: rgba(221,226,229,.10);
+  --on-accent: #0D0F10;
+  --pos: #7FA98C;
+  --neg: #D07B70;
+  --warn: #B79A5E;
+  --seo: #8B979F;
+  --geo: #DDE2E5;
+  --radius: 0px;
+  --radius-sm: 0px;
+  --grain: 0.05;
+  --font-display: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* ---- D · VELLUM (hell, freigegebenes Dokument) ---- */
+:root[data-variant="vellum"] {
+  --ground: #EEF0EC;
+  --ground-2: #E5E8E2;
+  --surface: #F8F9F6;
+  --surface-2: #F1F3EE;
+  --line: #D6DAD3;
+  --line-strong: #B8BEB4;
+  --ink: #141C22;
+  --ink-2: #5E6B6E;
+  --ink-3: #616E64;
+  --accent: #1F4E6B;
+  --accent-soft: rgba(31,78,107,.10);
+  --on-accent: #F8F9F6;
+  --pos: #2F6B4F;
+  --neg: #9E3B2E;
+  --warn: #8A6320;
+  --seo: #1F4E6B;
+  --geo: #9E3B2E;
+  --radius: 3px;
+  --radius-sm: 2px;
+  --grain: 0.07;
+  --shadow: 0 1px 0 rgba(20,28,34,.05);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background 240ms ease, color 240ms ease;
+}
+
+.grain {
+  position: fixed; inset: 0; z-index: 9; pointer-events: none;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  transition: opacity 240ms ease;
+}
+
+::selection { background: var(--accent); color: var(--on-accent); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   ZUGANG — die Iris
+   ============================================================ */
+
+.gate {
+  position: fixed; inset: 0; z-index: 40;
+  display: grid; place-items: center;
+  padding: var(--s5);
+  background:
+    radial-gradient(120% 90% at 50% 42%, var(--ground) 0%, var(--ground-2) 72%);
+  transition: opacity 700ms ease, visibility 700ms;
+}
+.gate.gate--open { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.gate-inner {
+  width: 100%; max-width: 380px;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+}
+
+.iris { width: 128px; height: 128px; margin-bottom: var(--s5); }
+.iris svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.iris .ring-a { animation: spin 22s linear infinite; transform-origin: 50% 50%; }
+.iris .ring-b { animation: spin 14s linear infinite reverse; transform-origin: 50% 50%; }
+.gate.gate--open .iris svg { transform: scale(7); opacity: 0; transition: transform 800ms cubic-bezier(.65,0,.35,1), opacity 800ms ease; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.gate-title {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  margin: var(--s3) 0 var(--s1);
+  text-wrap: balance;
+}
+.gate-sub { color: var(--ink-2); margin: 0 0 var(--s6); font-size: 13px; }
+
+.gate-form { display: flex; flex-direction: column; gap: var(--s3); width: 100%; text-align: left; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field > span {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-2);
+}
+.field input {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 11px 13px;
+  width: 100%;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+.field input:hover { border-color: var(--line-strong); }
+.field input:focus { border-color: var(--accent); outline: none; }
+
+.btn {
+  font-family: var(--font-ui);
+  font-size: 14px; font-weight: 500;
+  color: var(--on-accent);
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 11px 18px;
+  cursor: pointer;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.btn:hover { opacity: .88; }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .4; cursor: not-allowed; }
+
+.gate-msg {
+  min-height: 18px; margin: 0;
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--neg); letter-spacing: .02em;
+}
+.gate-note {
+  margin: var(--s5) 0 0;
+  font-size: 11px; line-height: 1.6; color: var(--ink-3);
+  border-top: 1px solid var(--line);
+  padding-top: var(--s3);
+}
+
+/* ============================================================
+   ANWENDUNG
+   ============================================================ */
+
+.app { display: none; }
+.app.app--on { display: block; animation: fadein 600ms 200ms ease both; }
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+
+.clsbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: var(--s4);
+  flex-wrap: wrap;
+  padding: 7px var(--s5);
+  background: var(--ground-2);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-2);
+}
+.clsbar .cls-mark { color: var(--accent); }
+.clsbar .spacer { flex: 1 1 auto; }
+
+.seg {
+  display: flex; gap: 2px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 2px;
+}
+.seg button {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-2);
+  background: transparent; border: 0;
+  border-radius: calc(var(--radius-sm) - 1px);
+  padding: 4px 9px; cursor: pointer;
+  transition: background 180ms ease, color 180ms ease;
+}
+.seg button:hover { color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+
+.topbar {
+  display: flex; align-items: baseline; gap: var(--s5);
+  flex-wrap: wrap;
+  padding: var(--s5) var(--s5) var(--s4);
+  border-bottom: 1px solid var(--line);
+}
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 500; letter-spacing: .10em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.wordmark em { font-style: normal; color: var(--accent); }
+.topbar .sub { color: var(--ink-2); font-size: 12px; }
+.topbar .spacer { flex: 1 1 auto; }
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-2);
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+.chip--warn { color: var(--warn); border-color: var(--warn); }
+
+.linkbtn {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-2);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 6px 11px; cursor: pointer;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.linkbtn:hover { color: var(--ink); border-color: var(--line-strong); }
+
+main { padding: var(--s5); display: flex; flex-direction: column; gap: var(--s4); }
+
+/* --- Panels --- */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--s4) var(--s5) var(--s5);
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+.panel-head {
+  display: flex; align-items: baseline; gap: var(--s3);
+  flex-wrap: wrap;
+  margin-bottom: var(--s4);
+}
+.panel-head h2 {
+  font-family: var(--font-display);
+  font-size: 15px; font-weight: 500; letter-spacing: .09em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.panel-head .note { font-size: 11px; color: var(--ink-3); margin-left: auto; }
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 3px;
+}
+.tag--seo { color: var(--seo); background: color-mix(in srgb, var(--seo) 14%, transparent); }
+.tag--geo { color: var(--geo); background: color-mix(in srgb, var(--geo) 16%, transparent); }
+
+/* --- KPI-Kacheln --- */
+.kpis {
+  display: grid; gap: var(--s3);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.kpi {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--s3) var(--s4) var(--s4);
+  display: flex; flex-direction: column; gap: 6px;
+  box-shadow: var(--shadow);
+  min-width: 0;
+  transition: border-color 200ms ease;
+}
+.kpi:hover { border-color: var(--line-strong); }
+.kpi .k-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-2);
+  display: flex; align-items: center; gap: 6px;
+  overflow-wrap: anywhere;
+}
+.kpi .k-label .tag { flex: 0 0 auto; }
+.kpi .k-val {
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 500; letter-spacing: -.01em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.05;
+}
+.kpi .k-val small { font-size: 15px; color: var(--ink-2); margin-left: 2px; }
+.kpi .k-foot {
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 2px; margin-top: auto; padding-top: 2px;
+}
+.delta {
+  font-family: var(--font-mono); font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  display: inline-flex; align-items: center; gap: 3px;
+  white-space: nowrap;
+}
+.delta--up { color: var(--pos); }
+.delta--down { color: var(--neg); }
+.delta svg { width: 9px; height: 9px; }
+.kpi .k-base { font-size: 10px; color: var(--ink-3); font-family: var(--font-mono); }
+.spark { margin-top: 2px; height: 26px; }
+.spark svg { display: block; width: 100%; height: 26px; }
+
+/* --- Raster --- */
+.row { display: grid; gap: var(--s4); }
+.row--73 { grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); }
+.row--55 { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+
+/* --- Liniendiagramm --- */
+.chart svg { display: block; width: 100%; height: auto; }
+.legend { display: flex; gap: var(--s4); flex-wrap: wrap; margin-bottom: var(--s3); }
+.legend span {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2);
+}
+.legend i { width: 18px; height: 0; border-top-width: 2px; border-top-style: solid; }
+
+/* --- Engine-Balken --- */
+.bars { display: flex; flex-direction: column; gap: var(--s3); }
+/* füllt die von der Chart-Nachbarspalte vorgegebene Höhe ruhig aus */
+.panel--fill { display: flex; flex-direction: column; }
+.panel--fill .bars { flex: 1 1 auto; justify-content: space-evenly; }
+.bar-row { display: grid; grid-template-columns: 1fr auto; gap: 4px var(--s3); align-items: baseline; }
+.bar-row .b-name { font-size: 12.5px; }
+.bar-row .b-val { font-family: var(--font-mono); font-size: 12px; font-variant-numeric: tabular-nums; }
+.bar-track {
+  grid-column: 1 / -1;
+  height: 5px; background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 999px; overflow: hidden;
+}
+.bar-fill { height: 100%; background: var(--geo); border-radius: 999px; transition: width 700ms cubic-bezier(.22,1,.36,1); }
+
+/* --- Tabellen --- */
+.tablewrap { overflow-x: auto; margin: 0 calc(var(--s5) * -1) calc(var(--s5) * -1); padding: 0 var(--s5) var(--s2); }
+/* color: inherit — ohne DOCTYPE erben Tabellen im Quirks-Mode die Textfarbe nicht */
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; color: inherit; }
+thead th {
+  font-family: var(--font-mono);
+  font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-2); font-weight: 400; text-align: left;
+  padding: 0 var(--s3) var(--s2) 0;
+  border-bottom: 1px solid var(--line-strong);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 9px var(--s3) 9px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+tbody tr { transition: background 150ms ease; }
+tbody tr:hover { background: var(--surface-2); }
+tbody tr:last-child td { border-bottom: 0; }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+th.num { text-align: right; }
+.kw { font-weight: 500; }
+
+.pill {
+  font-family: var(--font-mono);
+  font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase;
+  border: 1px solid currentColor; border-radius: 3px;
+  padding: 2px 6px; white-space: nowrap;
+}
+.pill--yes { color: var(--pos); }
+.pill--no { color: var(--neg); }
+.pill--mute { color: var(--ink-3); }
+
+/* --- Regionen --- */
+.regions { display: flex; flex-direction: column; gap: 11px; }
+.region { display: grid; grid-template-columns: 1fr auto; gap: 3px var(--s3); align-items: baseline; }
+.region .r-name { font-size: 12.5px; }
+.region .r-val { font-family: var(--font-mono); font-size: 11.5px; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.region .r-track { grid-column: 1 / -1; height: 3px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.region .r-fill { height: 100%; background: var(--seo); border-radius: 999px; transition: width 700ms cubic-bezier(.22,1,.36,1); }
+
+/* --- Vitals --- */
+.vitals { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: var(--s4); }
+.vital { display: flex; flex-direction: column; gap: 3px; }
+.vital .v-label { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+.vital .v-val { font-family: var(--font-display); font-size: 20px; font-variant-numeric: tabular-nums; }
+.vital .v-note { font-size: 10.5px; color: var(--ink-3); }
+
+/* --- Fusszeile --- */
+.foot {
+  padding: var(--s5);
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-3);
+  display: flex; gap: var(--s4); flex-wrap: wrap;
+}
+
+/* ============================================================
+   RESPONSIV
+   ============================================================ */
+@media (max-width: 1180px) {
+  .kpis { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .row--73, .row--55 { grid-template-columns: minmax(0,1fr); }
+  .vitals { grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 640px) {
+  main { padding: var(--s4); gap: var(--s3); }
+  .topbar, .clsbar { padding-left: var(--s4); padding-right: var(--s4); }
+  .kpis { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .vitals { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .panel { padding: var(--s3) var(--s4) var(--s4); }
+  .tablewrap { margin: 0 calc(var(--s4) * -1) calc(var(--s4) * -1); padding: 0 var(--s4) var(--s2); }
+  .gate-title { font-size: 27px; }
+
+  /* Kopfbereich verdichten — auf 375px zählt jede Zeile */
+  .clsbar { gap: var(--s2) var(--s3); padding: 6px var(--s4); font-size: 9px; }
+  .clsbar .cls-label { display: none; }
+  .clsbar .spacer { flex-basis: 100%; height: 0; }
+  .seg button { padding: 4px 7px; font-size: 9px; }
+
+  .topbar { gap: var(--s2) var(--s3); padding: var(--s4) var(--s4) var(--s3); align-items: center; }
+  .wordmark { font-size: 17px; flex-basis: 100%; }
+  .topbar .sub { font-size: 11px; }
+  .topbar .spacer { display: none; }
+
+  .kpi { padding: var(--s3); }
+  .kpi .k-label { font-size: 9px; letter-spacing: .1em; }
+  .kpi .k-val { font-size: 23px; }
+  .kpi .k-val small { font-size: 13px; }
+  .spark svg, .spark { height: 22px; }
+}
+
+/* Unter 430px steht das Label in einer Spalte, statt mitten im Wort zu brechen */
+@media (max-width: 430px) {
+  .kpis { grid-template-columns: minmax(0, 1fr); }
+  .kpi { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 4px var(--s3); }
+  .kpi .k-label { flex: 1 1 100%; font-size: 9.5px; }
+  .kpi .k-val { font-size: 26px; }
+  .kpi .spark { flex: 1 1 90px; margin: 0; }
+  .kpi .k-foot { flex: 1 1 100%; flex-direction: row; align-items: baseline; gap: var(--s2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
+</style>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============================ ZUGANG ============================ -->
+<div class="gate" id="gate">
+  <div class="gate-inner">
+    <div class="iris" aria-hidden="true">
+      <svg viewBox="0 0 120 120" fill="none">
+        <circle class="ring-a" cx="60" cy="60" r="54" stroke="var(--line-strong)" stroke-width="1"
+                stroke-dasharray="3 9" />
+        <circle class="ring-b" cx="60" cy="60" r="42" stroke="var(--accent)" stroke-width="1"
+                stroke-dasharray="60 200" stroke-linecap="round" opacity=".9" />
+        <circle cx="60" cy="60" r="30" stroke="var(--line)" stroke-width="1" />
+        <circle cx="60" cy="60" r="4.5" fill="var(--accent)" />
+        <path d="M60 6v14M60 100v14M6 60h14M100 60h14" stroke="var(--line-strong)" stroke-width="1" />
+      </svg>
+    </div>
+
+    <p class="eyebrow">Vertraulich · Nur für autorisierte Nutzung</p>
+    <h1 class="gate-title">RocFortis <em style="font-style:normal;color:var(--accent)">Signal</em></h1>
+    <p class="gate-sub">SEO- und GEO-Lagebild der RocFortis Group</p>
+
+    <form class="gate-form" id="gateForm" autocomplete="off">
+      <label class="field">
+        <span>Benutzer</span>
+        <input id="fUser" type="text" name="rf-user" autocapitalize="off" autocorrect="off" spellcheck="false" required />
+      </label>
+      <label class="field">
+        <span>Passwort</span>
+        <input id="fPass" type="password" name="rf-pass" required />
+      </label>
+      <button class="btn" type="submit" id="fBtn">Freischalten</button>
+      <p class="gate-msg" id="gateMsg" role="alert" aria-live="assertive"></p>
+    </form>
+
+    <p class="gate-note">
+      Zugangsdaten werden von der Administration vergeben. Es gibt keine Selbstregistrierung
+      und keine Passwortänderung. Zugang verloren? Administration kontaktieren.
+    </p>
+  </div>
+</div>
+
+<!-- ========================== ANWENDUNG ========================== -->
+<div class="app" id="app">
+
+  <div class="clsbar">
+    <span class="cls-mark">◆ Vertraulich</span>
+    <span>Freigabestufe 2</span>
+    <span id="clock">—</span>
+    <span class="spacer"></span>
+    <span class="cls-label">Design</span>
+    <div class="seg" id="seg" role="group" aria-label="Designvariante wählen">
+      <button type="button" data-v="dossier"   aria-pressed="true">Dossier</button>
+      <button type="button" data-v="cupertino" aria-pressed="false">Cupertino</button>
+      <button type="button" data-v="gunmetal"  aria-pressed="false">Gunmetal</button>
+      <button type="button" data-v="vellum"    aria-pressed="false">Vellum</button>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <h1 class="wordmark">RocFortis <em>Signal</em></h1>
+    <span class="sub">Zeitraum: 12 Monate bis August 2026</span>
+    <span class="spacer"></span>
+    <span class="chip chip--warn">Demodaten</span>
+    <button class="linkbtn" type="button" id="logout">Abmelden</button>
+  </header>
+
+  <main>
+    <section class="kpis" id="kpis" aria-label="Kennzahlen"></section>
+
+    <section class="row row--73">
+      <article class="panel chart">
+        <div class="panel-head">
+          <h2>Sichtbarkeit über Zeit</h2>
+          <span class="note">Monatswerte · September 2025 – August 2026</span>
+        </div>
+        <div class="legend">
+          <span><i style="border-color:var(--seo);border-top-style:dashed"></i>SEO-Sichtbarkeitsindex</span>
+          <span><i style="border-color:var(--geo)"></i>GEO-Präsenz in KI-Antworten</span>
+        </div>
+        <div id="lineChart"></div>
+      </article>
+
+      <article class="panel panel--fill">
+        <div class="panel-head">
+          <h2>KI-Engines</h2>
+          <span class="tag tag--geo">GEO</span>
+          <span class="note">Zitationsanteil</span>
+        </div>
+        <div class="bars" id="engines"></div>
+      </article>
+    </section>
+
+    <section class="row row--55">
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Keyword-Lage</h2>
+          <span class="tag tag--seo">SEO</span>
+          <span class="note">Top-Begriffe nach Geschäftsrelevanz</span>
+        </div>
+        <div class="tablewrap" tabindex="0" role="region" aria-label="Keyword-Lage, seitlich scrollbar">
+          <table id="kwTable">
+            <thead>
+              <tr>
+                <th>Keyword</th>
+                <th class="num">Pos.</th>
+                <th class="num">Δ</th>
+                <th class="num">Volumen</th>
+                <th>Intent</th>
+                <th>KI-Zitat</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <h2>Märkte &amp; Regionen</h2>
+          <span class="note">Anteil organischer Sitzungen</span>
+        </div>
+        <div class="regions" id="regions"></div>
+      </article>
+    </section>
+
+    <article class="panel">
+      <div class="panel-head">
+        <h2>Prompt-Monitor</h2>
+        <span class="tag tag--geo">GEO</span>
+        <span class="note">Wöchentlich abgefragte Anfragen · Zitat = RocFortis wird in der Antwort genannt</span>
+      </div>
+      <div class="tablewrap" tabindex="0" role="region" aria-label="Prompt-Monitor, seitlich scrollbar">
+        <table id="promptTable">
+          <thead>
+            <tr>
+              <th>Überwachte Anfrage</th>
+              <th>Engine</th>
+              <th>Ergebnis</th>
+              <th class="num">Rang</th>
+              <th>Stattdessen genannt</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head">
+        <h2>Technische Basis</h2>
+        <span class="note">Feldwerte der letzten 28 Tage</span>
+      </div>
+      <div class="vitals" id="vitals"></div>
+    </article>
+  </main>
+
+  <footer class="foot">
+    <span>RocFortis Group · Internes Lagebild</span>
+    <span>Erhebung: Search Console · GA4 · Prompt-Sampling</span>
+    <span id="footStamp"></span>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   DATEN — echte Zahlen ersetzen ausschliesslich dieses Objekt.
+   ============================================================ */
+const DATA = {
+  kpis: [
+    { ch:'SEO', label:'Organische Sitzungen', val:'42.860', unit:'/Mon.', d:+18.4, dUnit:'%',      base:'Vorjahr 36.190',
+      spark:[28,29,31,30,33,35,34,37,38,40,41,43] },
+    { ch:'SEO', label:'Sichtbarkeitsindex',   val:'6,84',   unit:'',      d:+15.5, dUnit:'%',      base:'Vorjahr 5,92',
+      spark:[3.9,4.1,4.0,4.4,4.8,5.1,5.0,5.6,5.9,6.2,6.5,6.84] },
+    { ch:'SEO', label:'Keywords Top 10',      val:'137',    unit:'',      d:+21.2, dUnit:'%',      base:'Vorquartal 113',
+      spark:[92,95,99,101,104,108,110,116,121,127,131,137] },
+    { ch:'GEO', label:'KI-Zitationsrate',     val:'31,4',   unit:'%',     d:+9.1,  dUnit:' pp',    base:'Vorjahr 22,3 %',
+      spark:[6,7,9,11,10,14,17,19,22,25,28,31.4] },
+    { ch:'GEO', label:'Share of Voice KI',    val:'18,7',   unit:'%',     d:+4.2,  dUnit:' pp',    base:'Mitbewerb 12,3 %',
+      spark:[8,9,9,10,11,12,13,14,15,16,17,18.7] },
+    { ch:'GEO', label:'Ø Antwortposition',    val:'2,4',    unit:'',      d:-0.9,  dUnit:' Pl.',   base:'niedriger ist besser', invert:true,
+      spark:[4.8,4.6,4.5,4.4,4.1,3.9,3.6,3.3,3.1,2.9,2.6,2.4] }
+  ],
+
+  timeline: {
+    months: ['Sep','Okt','Nov','Dez','Jän','Feb','Mär','Apr','Mai','Jun','Jul','Aug'],
+    seo: [3.9,4.1,4.0,4.4,4.8,5.1,5.0,5.6,5.9,6.2,6.5,6.84],
+    geo: [6,7,9,11,10,14,17,19,22,25,28,31.4]
+  },
+
+  engines: [
+    { name:'Perplexity',          val:41.0, d:+14.2 },
+    { name:'ChatGPT',             val:34.2, d:+11.3 },
+    { name:'Google AI Overviews', val:28.6, d:+6.8  },
+    { name:'Claude',              val:22.4, d:+5.1  },
+    { name:'Microsoft Copilot',   val:15.8, d:-2.4  }
+  ],
+
+  keywords: [
+    { kw:'sicherheitstechnik wien',            pos:3,  d:+2, vol:'1.900', intent:'Transaktional', cited:true  },
+    { kw:'objektschutz unternehmen österreich', pos:5,  d:+4, vol:'1.300', intent:'Kommerziell',   cited:true  },
+    { kw:'brandschutzprüfung kosten',          pos:11, d:-1, vol:'880',   intent:'Information',   cited:false },
+    { kw:'werkschutz zertifiziert dach',       pos:7,  d:+3, vol:'720',   intent:'Kommerziell',   cited:true  },
+    { kw:'facility management ausschreibung',  pos:14, d:+6, vol:'590',   intent:'Transaktional', cited:false },
+    { kw:'sicherheitskonzept industrieanlage', pos:2,  d:+1, vol:'480',   intent:'Information',   cited:true  },
+    { kw:'rocfortis group',                    pos:1,  d:0,  vol:'390',   intent:'Navigational',  cited:true  },
+    { kw:'perimeterschutz planung',            pos:19, d:-4, vol:'260',   intent:'Information',   cited:false }
+  ],
+
+  regions: [
+    { name:'Wien',                 val:38.2 },
+    { name:'Niederösterreich',     val:16.9 },
+    { name:'Oberösterreich',       val:12.4 },
+    { name:'Steiermark',           val:10.7 },
+    { name:'Deutschland',          val: 9.1 },
+    { name:'Tirol & Vorarlberg',   val: 7.6 },
+    { name:'Schweiz',              val: 5.1 }
+  ],
+
+  prompts: [
+    { q:'Wer bietet Objektschutz in Wien an?',                  e:'Perplexity',  cited:true,  rank:2, rival:'—' },
+    { q:'Beste Sicherheitsdienstleister Österreich',            e:'ChatGPT',     cited:true,  rank:1, rival:'—' },
+    { q:'Was kostet eine Brandschutzprüfung in Österreich?',    e:'AI Overviews',cited:false, rank:null, rival:'Securitas' },
+    { q:'Zertifizierte Werkschutz-Anbieter im DACH-Raum',       e:'Claude',      cited:true,  rank:4, rival:'—' },
+    { q:'Facility Management Ausschreibung Wien Ablauf',        e:'Copilot',     cited:false, rank:null, rival:'ISS Facility' },
+    { q:'Sicherheitskonzept für Industrieanlagen erstellen',    e:'Perplexity',  cited:true,  rank:1, rival:'—' },
+    { q:'Objektschutz vs. Werkschutz Unterschied',              e:'ChatGPT',     cited:false, rank:null, rival:'G4S' }
+  ],
+
+  vitals: [
+    { label:'LCP',            val:'1,8 s',  note:'gut · Schwelle 2,5 s',  ok:true  },
+    { label:'INP',            val:'142 ms', note:'gut · Schwelle 200 ms', ok:true  },
+    { label:'CLS',            val:'0,04',   note:'gut · Schwelle 0,10',   ok:true  },
+    { label:'Indexiert',      val:'1.284',  note:'+96 gg. Vormonat',      ok:true  },
+    { label:'Crawl-Fehler',   val:'7',      note:'davon 3 kritisch',      ok:false }
+  ]
+};
+
+/* ============================================================
+   ZUGANG
+   ============================================================ */
+const ACCESS_HASH = 'c5a04f5af07b717ed46720675a2b16362b305847d869cb5265dd254cd8d2654f';
+const SALT = 'rf-signal-v1';
+const KEY = 'rf-signal-session';
+
+const $ = (s, r = document) => r.querySelector(s);
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+let attempts = 0, lockedUntil = 0;
+
+$('#gateForm').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const msg = $('#gateMsg');
+
+  if (Date.now() < lockedUntil) {
+    const s = Math.ceil((lockedUntil - Date.now()) / 1000);
+    msg.textContent = `Eingabe gesperrt. Noch ${s} Sekunden.`;
+    return;
+  }
+
+  const user = $('#fUser').value.trim().toLowerCase();
+  const pass = $('#fPass').value;
+  const hash = await sha256(`${user}:${pass}:${SALT}`);
+
+  if (hash === ACCESS_HASH) {
+    msg.textContent = '';
+    try { sessionStorage.setItem(KEY, '1'); } catch (e) { /* Privatmodus */ }
+    unlock();
+    return;
+  }
+
+  attempts++;
+  $('#fPass').value = '';
+  if (attempts >= 5) {
+    lockedUntil = Date.now() + 60000;
+    attempts = 0;
+    msg.textContent = 'Fünf Fehlversuche. Eingabe für 60 Sekunden gesperrt.';
+  } else {
+    msg.textContent = `Zugangsdaten nicht erkannt. Noch ${5 - attempts} Versuche.`;
+    $('#fPass').focus();
+  }
+});
+
+function unlock() {
+  $('#gate').classList.add('gate--open');
+  const app = $('#app');
+  app.classList.add('app--on');
+  render();
+  setTimeout(() => { $('#gate').setAttribute('inert', ''); }, 800);
+}
+
+$('#logout').addEventListener('click', () => {
+  try { sessionStorage.removeItem(KEY); } catch (e) {}
+  location.reload();
+});
+
+/* ============================================================
+   DESIGNVARIANTEN
+   ============================================================ */
+const VKEY = 'rf-signal-variant';
+
+function setVariant(v, remember = true) {
+  document.documentElement.setAttribute('data-variant', v);
+  $('#seg').querySelectorAll('button').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.v === v))
+  );
+  if (remember) { try { localStorage.setItem(VKEY, v); } catch (e) {} }
+  if ($('#app').classList.contains('app--on')) drawLine();
+}
+
+$('#seg').addEventListener('click', (ev) => {
+  const b = ev.target.closest('button[data-v]');
+  if (b) setVariant(b.dataset.v);
+});
+
+(function initVariant() {
+  let v = null;
+  try { v = localStorage.getItem(VKEY); } catch (e) {}
+  if (!v) v = matchMedia('(prefers-color-scheme: light)').matches ? 'cupertino' : 'dossier';
+  setVariant(v, false);
+})();
+
+/* ============================================================
+   DARSTELLUNG
+   ============================================================ */
+const ARROW_UP   = '<svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M5 8.5V1.5M5 1.5 1.8 4.7M5 1.5l3.2 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ARROW_DOWN = '<svg viewBox="0 0 10 10" fill="none" aria-hidden="true"><path d="M5 1.5v7M5 8.5 1.8 5.3M5 8.5l3.2-3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nf = (n, d = 1) => n.toLocaleString('de-AT', { minimumFractionDigits: d, maximumFractionDigits: d });
+
+/** Richtung: bei invert ist ein Minus die Verbesserung. */
+function deltaHTML(d, invert = false, unit = '%', dec = 1) {
+  const good = invert ? d < 0 : d > 0;
+  const cls = good ? 'delta--up' : 'delta--down';
+  const arrow = d > 0 ? ARROW_UP : ARROW_DOWN;
+  const sign = d > 0 ? '+' : '−';
+  return `<span class="delta ${cls}">${arrow}${sign}${nf(Math.abs(d), dec)}${unit}</span>`;
+}
+
+function sparkSVG(vals) {
+  const w = 120, h = 26, p = 2;
+  const min = Math.min(...vals), max = Math.max(...vals), span = (max - min) || 1;
+  const pts = vals.map((v, i) => [
+    p + i * (w - 2 * p) / (vals.length - 1),
+    h - p - ((v - min) / span) * (h - 2 * p)
+  ]);
+  const d = pts.map((pt, i) => `${i ? 'L' : 'M'}${pt[0].toFixed(1)} ${pt[1].toFixed(1)}`).join(' ');
+  const last = pts[pts.length - 1];
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">
+    <path d="${d}" fill="none" stroke="var(--ink-3)" stroke-width="1.2" vector-effect="non-scaling-stroke"
+          stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="1.8" fill="var(--accent)"/>
+  </svg>`;
+}
+
+function renderKPIs() {
+  $('#kpis').innerHTML = DATA.kpis.map(k => `
+    <div class="kpi">
+      <div class="k-label"><span class="tag tag--${k.ch.toLowerCase()}">${k.ch}</span>${esc(k.label)}</div>
+      <div class="k-val">${esc(k.val)}${k.unit ? `<small>${esc(k.unit)}</small>` : ''}</div>
+      <div class="spark">${sparkSVG(k.spark)}</div>
+      <div class="k-foot">
+        ${deltaHTML(k.d, k.invert, k.dUnit)}
+        <span class="k-base">${esc(k.base)}</span>
+      </div>
+    </div>`).join('');
+}
+
+function drawLine() {
+  const { months, seo, geo } = DATA.timeline;
+  const W = 760, H = 280, L = 44, R = 46, T = 16, B = 34;
+  const iw = W - L - R, ih = H - T - B;
+
+  const sMax = Math.ceil(Math.max(...seo));
+  const gMax = Math.ceil(Math.max(...geo) / 10) * 10;
+  const x = i => L + i * iw / (months.length - 1);
+  const yS = v => T + ih - (v / sMax) * ih;
+  const yG = v => T + ih - (v / gMax) * ih;
+
+  const path = (arr, y) => arr.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
+  const area = `${path(geo, yG)} L${x(months.length - 1).toFixed(1)} ${T + ih} L${L} ${T + ih} Z`;
+
+  const grid = [0, .25, .5, .75, 1].map(t => {
+    const yy = T + ih - t * ih;
+    return `<line x1="${L}" y1="${yy}" x2="${W - R}" y2="${yy}" stroke="var(--line)" stroke-width="1"/>
+      <text x="${L - 9}" y="${yy + 3.5}" text-anchor="end" class="ax ax-s">${nf(sMax * t, 1)}</text>
+      <text x="${W - R + 9}" y="${yy + 3.5}" text-anchor="start" class="ax ax-g">${Math.round(gMax * t)}%</text>`;
+  }).join('');
+
+  const labels = months.map((m, i) =>
+    `<text x="${x(i).toFixed(1)}" y="${H - 12}" text-anchor="middle" class="ax">${m}</text>`).join('');
+
+  const lastI = months.length - 1;
+
+  $('#lineChart').innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" role="img"
+         aria-label="Sichtbarkeit über zwölf Monate. SEO-Index von 3,9 auf 6,84. GEO-Präsenz von 6 auf 31,4 Prozent.">
+      <defs>
+        <linearGradient id="gfill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="var(--geo)" stop-opacity=".22"/>
+          <stop offset="100%" stop-color="var(--geo)" stop-opacity="0"/>
+        </linearGradient>
+        <style>
+          .ax { font-family: var(--font-mono); font-size: 9.5px; fill: var(--ink-3); letter-spacing: .06em; }
+          .ax-s { fill: var(--seo); }
+          .ax-g { fill: var(--geo); }
+        </style>
+      </defs>
+
+      ${grid}
+      <path d="${area}" fill="url(#gfill)"/>
+      <path d="${path(seo, yS)}" fill="none" stroke="var(--seo)" stroke-width="1.75"
+            stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+      <path d="${path(geo, yG)}" fill="none" stroke="var(--geo)" stroke-width="2.25"
+            stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+
+      <circle cx="${x(lastI).toFixed(1)}" cy="${yS(seo[lastI]).toFixed(1)}" r="3.2"
+              fill="var(--surface)" stroke="var(--seo)" stroke-width="1.75"/>
+      <circle cx="${x(lastI).toFixed(1)}" cy="${yG(geo[lastI]).toFixed(1)}" r="4" fill="var(--geo)"/>
+
+      ${labels}
+    </svg>`;
+}
+
+function renderEngines() {
+  const max = Math.max(...DATA.engines.map(e => e.val));
+  $('#engines').innerHTML = DATA.engines.map(e => `
+    <div class="bar-row">
+      <span class="b-name">${esc(e.name)}</span>
+      <span class="b-val">${nf(e.val)} % ${deltaHTML(e.d, false, ' pp')}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${(e.val / max * 100).toFixed(1)}%"></div></div>
+    </div>`).join('');
+}
+
+function renderKeywords() {
+  $('#kwTable tbody').innerHTML = DATA.keywords.map(k => {
+    const dl = k.d === 0
+      ? '<span class="delta" style="color:var(--ink-3)">0</span>'
+      : deltaHTML(k.d, false, '', 0);
+    return `<tr>
+      <td class="kw">${esc(k.kw)}</td>
+      <td class="num">${k.pos}</td>
+      <td class="num">${dl}</td>
+      <td class="num">${esc(k.vol)}</td>
+      <td>${esc(k.intent)}</td>
+      <td><span class="pill ${k.cited ? 'pill--yes' : 'pill--no'}">${k.cited ? 'Zitiert' : 'Kein Zitat'}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderRegions() {
+  const max = Math.max(...DATA.regions.map(r => r.val));
+  $('#regions').innerHTML = DATA.regions.map(r => `
+    <div class="region">
+      <span class="r-name">${esc(r.name)}</span>
+      <span class="r-val">${nf(r.val)} %</span>
+      <div class="r-track"><div class="r-fill" style="width:${(r.val / max * 100).toFixed(1)}%"></div></div>
+    </div>`).join('');
+}
+
+function renderPrompts() {
+  $('#promptTable tbody').innerHTML = DATA.prompts.map(p => `
+    <tr>
+      <td>${esc(p.q)}</td>
+      <td class="num" style="text-align:left">${esc(p.e)}</td>
+      <td><span class="pill ${p.cited ? 'pill--yes' : 'pill--no'}">${p.cited ? 'Zitiert' : 'Nicht zitiert'}</span></td>
+      <td class="num">${p.rank ?? '—'}</td>
+      <td>${p.rival === '—'
+            ? '<span style="color:var(--ink-3)">—</span>'
+            : `<span class="pill pill--no">${esc(p.rival)}</span>`}</td>
+    </tr>`).join('');
+}
+
+function renderVitals() {
+  $('#vitals').innerHTML = DATA.vitals.map(v => `
+    <div class="vital">
+      <span class="v-label">${esc(v.label)}</span>
+      <span class="v-val" style="color:${v.ok ? 'var(--ink)' : 'var(--neg)'}">${esc(v.val)}</span>
+      <span class="v-note">${esc(v.note)}</span>
+    </div>`).join('');
+}
+
+function tick() {
+  const d = new Date();
+  const z = n => String(n).padStart(2, '0');
+  const stamp = `${d.getUTCFullYear()}-${z(d.getUTCMonth() + 1)}-${z(d.getUTCDate())} ${z(d.getUTCHours())}:${z(d.getUTCMinutes())}:${z(d.getUTCSeconds())}Z`;
+  $('#clock').textContent = stamp;
+  $('#footStamp').textContent = `Sitzung ${stamp}`;
+}
+
+let rendered = false;
+function render() {
+  if (!rendered) {
+    renderKPIs(); renderEngines(); renderKeywords();
+    renderRegions(); renderPrompts(); renderVitals();
+    tick(); setInterval(tick, 1000);
+    rendered = true;
+  }
+  drawLine();
+}
+
+/* Bestehende Sitzung fortsetzen */
+try {
+  if (sessionStorage.getItem(KEY) === '1') {
+    $('#gate').classList.add('gate--open');
+    $('#gate').setAttribute('inert', '');
+    $('#app').classList.add('app--on');
+    render();
+  } else {
+    $('#fUser').focus();
+  }
+} catch (e) {
+  $('#fUser').focus();
+}
+</script>

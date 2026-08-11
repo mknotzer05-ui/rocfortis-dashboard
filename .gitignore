@@ -1,0 +1,5 @@
+# Zugangsdaten gehören nicht ins Repository
+ZUGANG.txt
+
+.DS_Store
+.claude/
