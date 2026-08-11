@@ -375,6 +375,9 @@ main { padding: var(--s5); display: flex; flex-direction: column; gap: var(--s4)
   font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
   color: var(--ink-2);
   display: flex; align-items: center; gap: 6px;
+  /* trennt lange Komposita mit Trennstrich; anywhere bleibt nur der Notnagel */
+  hyphens: auto;
+  -webkit-hyphens: auto;
   overflow-wrap: anywhere;
 }
 .kpi .k-label .tag { flex: 0 0 auto; }
@@ -907,7 +910,7 @@ function sparkSVG(vals) {
 
 function renderKPIs() {
   $('#kpis').innerHTML = DATA.kpis.map(k => `
-    <div class="kpi">
+    <div class="kpi" lang="de">
       <div class="k-label"><span class="tag tag--${k.ch.toLowerCase()}">${k.ch}</span>${esc(k.label)}</div>
       <div class="k-val">${esc(k.val)}${k.unit ? `<small>${esc(k.unit)}</small>` : ''}</div>
       <div class="spark">${sparkSVG(k.spark)}</div>
