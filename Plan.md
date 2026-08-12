@@ -1,7 +1,7 @@
 # RocFortis Signal — SEO- & GEO-Dashboard
 
 **Projekt:** Internes Performance-Dashboard für die RocFortis Group
-**Stand:** 10. August 2026
+**Stand:** 12. August 2026 · erste Erhebung eingearbeitet
 **Datei:** `index.html` (eine Datei, keine Abhängigkeiten, offline lauffähig)
 
 ---
@@ -15,7 +15,9 @@ Ein passwortgeschütztes Lagebild für zwei Sichtbarkeitskanäle:
 | **SEO** | Search Engine Optimization | Wo steht RocFortis in klassischen Suchergebnissen? |
 | **GEO** | Generative Engine Optimization | Wird RocFortis in KI-Antworten (ChatGPT, Perplexity, Google AI Overviews, Claude, Copilot) zitiert? |
 
-> **Annahme:** „GEO" ist hier als *Generative Engine Optimization* umgesetzt — das übliche Gegenstück zu SEO. Die geografische Lesart ist trotzdem abgedeckt: das Panel **Märkte & Regionen** zeigt die Verteilung nach Bundesland und DACH-Markt. Falls GEO ausschließlich geografisch gemeint war, wird aus dem Prompt-Monitor ein Standort-Ranking — Aufwand ca. 1 Arbeitsschritt.
+> **Annahme:** „GEO" ist als *Generative Engine Optimization* umgesetzt — das übliche Gegenstück zu SEO. Falls die geografische Lesart gemeint war, wird aus dem Sichtbarkeitstest ein Standort-Ranking; dafür braucht es GA4-Zugang.
+
+Die Befunde der ersten Erhebung stehen in [AUDIT.md](AUDIT.md).
 
 ---
 
@@ -46,7 +48,7 @@ Mitternachtsblau mit Messing. Die Signatur der Marke.
 | `--ink-2` | `#8A9DAF` | Sekundärtext, Achsen |
 | `--accent` | `#D3A84C` | Messing — Marke, aktiver Zustand, Chart-Endpunkt |
 | `--pos` | `#4FA88B` | positive Entwicklung (gedämpftes Petrolgrün) |
-| `--neg` | `#C2534A` | negative Entwicklung (Oxidrot) |
+| `--neg` | `#DB7C72` | Mangel, negativer Befund |
 
 ### Variante B — `CUPERTINO` (hell, Apple)
 Kühles Weiß, Frostglas, dieselbe Messing-Marke in dunklerer Sättigung.
@@ -57,7 +59,7 @@ Kühles Weiß, Frostglas, dieselbe Messing-Marke in dunklerer Sättigung.
 | `--surface` | `#FFFFFF` |
 | `--line` | `#E1E7EC` |
 | `--ink` | `#0B1219` |
-| `--ink-2` | `#657686` |
+| `--ink-2` | `#5C6C7B` |
 | `--accent` | `#8A6714` |
 | `--pos` / `--neg` | `#2E7D63` / `#B23A31` |
 
@@ -72,7 +74,7 @@ Neutraler Waffenstahl, Radius 0, dichter gesetzt, Titel in Monospace. Instrument
 | `--ink` | `#EDEFF0` |
 | `--ink-2` | `#8B9296` |
 | `--accent` | `#DDE2E5` (das Licht selbst ist der Akzent) |
-| `--pos` / `--neg` | `#7FA98C` / `#B4564B` |
+| `--pos` / `--neg` | `#7FA98C` / `#D07B70` |
 
 ### Variante D — `VELLUM` (hell, freigegebenes Dokument)
 Kühles Papier mit Tintenblau und Stempelrot. Für Ausdruck und PDF-Export.
@@ -87,7 +89,7 @@ Kühles Papier mit Tintenblau und Stempelrot. Für Ausdruck und PDF-Export.
 | `--accent` | `#1F4E6B` |
 | `--pos` / `--neg` | `#2F6B4F` / `#9E3B2E` |
 
-**Semantik ist vom Akzent getrennt.** Grün/Rot bedeuten immer nur Entwicklungsrichtung, nie Marke. Kein Wert wird ausschließlich über Farbe kodiert — jede Kennzahl trägt zusätzlich Vorzeichen und Pfeil.
+**Semantik ist vom Akzent getrennt.** Grün/Gelb/Rot bedeuten immer nur Bewertung, nie Marke. Kein Wert wird ausschließlich über Farbe kodiert — jede Bewertung trägt zusätzlich ihre Zahl, jede Alarm-Kachel eine linke Kante. Alle vier Varianten wurden gemessen: schlechtester Textkontrast 4,67:1.
 
 ---
 
@@ -114,23 +116,23 @@ Ein Raster, vier Varianten — die Varianten tauschen ausschließlich Tokens (Fa
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│ VERTRAULICH · FREIGABESTUFE 2 · 2026-08-10 07:41Z    [Design▾]│  Klassifizierungsleiste
+│ VERTRAULICH · FREIGABESTUFE 2 · 2026-08-12 13:39Z    [Design▾]│  Klassifizierungsleiste
 ├──────────────────────────────────────────────────────────────┤
-│ ROCFORTIS SIGNAL          Zeitraum: 12 Monate ▾    [Abmelden] │  Kopf
+│ ROCFORTIS SIGNAL      Vollcrawl 98 Seiten ▾        [Abmelden] │  Kopf
 ├──────────────────────────────────────────────────────────────┤
 │ ┌──────┐┌──────┐┌──────┐ ┌──────┐┌──────┐┌──────┐            │
-│ │ SEO  ││ SEO  ││ SEO  │ │ GEO  ││ GEO  ││ GEO  │            │  6 KPI-Kacheln
+│ │ SEO  ││ SEO  ││ SEO  │ │ GEO  ││ GEO  ││ GEO  │            │  6 Kennzahl-Kacheln
 │ └──────┘└──────┘└──────┘ └──────┘└──────┘└──────┘            │  links SEO, rechts GEO
 ├───────────────────────────────────┬──────────────────────────┤
-│ Sichtbarkeit über Zeit            │ KI-Engines               │
-│ (zwei Reihen: SEO-Index / GEO-%)  │ (Zitationsanteil je       │
-│                                   │  Engine, Balken + Δ)     │
+│ Bewertung nach Kategorie          │ KI-Auffindbarkeit        │
+│ (7 Balken, Länge = Note,          │ (4 GEO-Dimensionen,      │
+│  Prozent = Gewicht)               │  gewichtet)              │
 ├───────────────────────────────────┼──────────────────────────┤
-│ Keyword-Lage (Tabelle)            │ Märkte & Regionen        │
+│ Befunde (Tabelle, nach Schwere)   │ Seitenbestand            │
 ├───────────────────────────────────┴──────────────────────────┤
-│ PROMPT-MONITOR — überwachte KI-Anfragen, Zitat ja/nein        │  Signatur-Modul
+│ SICHTBARKEITSTEST — echte Suchanfragen, gefunden ja/nein      │  Signatur-Modul
 ├──────────────────────────────────────────────────────────────┤
-│ Technische Basis: LCP · INP · CLS · Index · Crawl-Fehler      │
+│ Technische Basis: Serverantwort · Ladezeit · CSS · Codes      │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -143,7 +145,9 @@ Ein Raster, vier Varianten — die Varianten tauschen ausschließlich Tokens (Fa
 ## 6. Signatur-Elemente
 
 1. **Die Iris.** Der Zugangsbildschirm öffnet sich beim Freischalten wie eine Blende. Eine einzige inszenierte Bewegung, danach Ruhe. Bei `prefers-reduced-motion` blendet sie ohne Rotation über.
-2. **Der Prompt-Monitor.** Das Modul, das es auf keinem SEO-Dashboard gibt: die konkret überwachten KI-Anfragen, ob RocFortis zitiert wurde — und welcher Mitbewerber stattdessen. Das ist der eigentliche GEO-Wert und passt inhaltlich exakt zum Überwachungs-Motiv.
+2. **Der Sichtbarkeitstest.** Das Modul, das es auf keinem SEO-Dashboard gibt: echte Suchanfragen, ob rocfortis.com in den Ergebnissen steht — und welcher Wettbewerber stattdessen. Das ist der eigentliche GEO-Wert und passt exakt zum Überwachungs-Motiv.
+
+   **Keine erfundenen Verläufe.** Es gibt bewusst kein Liniendiagramm: für eine Zeitreihe fehlt die zweite Messung. Die Kachel-Balken zeigen die Bestandteile einer Kennzahl, nie einen Verlauf.
 3. **Die Klassifizierungsleiste.** Freigabestufe und laufender Zulu-Zeitstempel. Trägt echte Information (Sitzungskontext), ist keine Dekoration.
 
 ---
@@ -174,23 +178,40 @@ Ich setze das um, sobald das gewünscht ist.
 
 ## 8. Daten
 
-Alle Zahlen sind **Demodaten** und im Dashboard als solche markiert (Chip `DEMODATEN` in der Kopfzeile). Sie liegen gesammelt in einem einzigen Objekt am Anfang des `<script>`-Blocks:
+Alle Zahlen stammen aus einer **eigenen Erhebung am 12. August 2026**: Vollcrawl aller 98 Sitemap-URLs von rocfortis.com, Auswertung der ausgelieferten HTML-Dokumente, Browser-Messung der Ladezeiten und sechs echte Suchabfragen. Nichts ist geschätzt oder erfunden.
+
+Sie liegen gesammelt in einem einzigen Objekt am Anfang des `<script>`-Blocks:
 
 ```js
 const DATA = {
-  kpis:     [...],   // 6 Kennzahlen-Kacheln
-  timeline: {...},   // 12 Monate SEO-Index + GEO-Präsenz
-  engines:  [...],   // Zitationsanteil je KI-Engine
-  keywords: [...],   // Keyword-Tabelle
-  regions:  [...],   // Märkte & Regionen
-  prompts:  [...],   // Prompt-Monitor
-  vitals:   [...]    // technische Basis
+  kpis:       [...],  // 6 Kennzahlen-Kacheln
+  categories: [...],  // 7 SEO-Kategorien mit Gewicht
+  geodims:    [...],  // 4 GEO-Dimensionen
+  findings:   [...],  // Befunde nach Schwere
+  bestand:    [...],  // Seitenbestand aus der Sitemap
+  prompts:    [...],  // Sichtbarkeitstest
+  vitals:     [...]   // technische Messwerte
 };
 ```
 
-Zum Befüllen mit echten Zahlen wird nur dieses Objekt ersetzt — Layout, Charts und Tabellen leiten sich vollständig daraus ab.
+Bei jeder Neuerhebung wird nur dieses Objekt ersetzt — Layout, Balken und Tabellen leiten sich vollständig daraus ab.
 
-**Quellen, die dafür angebunden werden sollten:** Google Search Console (SEO), Ahrefs oder Sistrix (Sichtbarkeitsindex), GA4 (Sitzungen), sowie ein GEO-Monitoring für den Prompt-Monitor (Peec AI, Otterly oder eigenes Prompt-Sampling gegen die Engine-APIs).
+### Was gemessen wurde und was noch fehlt
+
+| Erhoben | Wie |
+|---|---|
+| Statuscodes, Titel, Beschreibungen, H1, Canonical, hreflang | Vollcrawl der 98 Sitemap-URLs |
+| Schema.org, Bilder, Alt-Texte, interne Verlinkung, Textlänge | Auswertung der ausgelieferten HTML-Dokumente |
+| Serverantwort, Ladezeit, Ressourcengewicht | Browser-Messung (Navigation Timing) |
+| Auffindbarkeit bei sechs Suchanfragen | echte Abfragen am 12. August 2026 |
+
+| Noch nicht erhoben | Wird gebraucht |
+|---|---|
+| Besucherzahlen, Klicks, Impressionen | Zugang zu Google Search Console und GA4 |
+| Keyword-Positionen und Suchvolumen | Search Console oder Sistrix/Ahrefs |
+| LCP, INP, CLS aus echten Nutzersitzungen | CrUX-Feldwerte über die Search Console |
+| Zitationen in ChatGPT, Perplexity, Claude | GEO-Monitoring (Peec AI, Otterly) oder eigenes Prompt-Sampling |
+| Entwicklung über Zeit | zweite Erhebung — diese hier ist der Nullpunkt |
 
 ---
 

@@ -421,7 +421,19 @@ main { padding: var(--s5); display: flex; flex-direction: column; gap: var(--s4)
 .legend i { width: 18px; height: 0; border-top-width: 2px; border-top-style: solid; }
 
 /* --- Engine-Balken --- */
-.bars { display: flex; flex-direction: column; gap: var(--s3); }
+.bars { display: flex; flex-direction: column; gap: var(--s4); }
+.b-weight {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .1em;
+  color: var(--ink-3); margin-left: 4px;
+}
+.b-max { color: var(--ink-3); font-size: 10px; }
+.b-note {
+  grid-column: 1 / -1;
+  font-size: 11px; color: var(--ink-3); margin-top: 1px;
+}
+.pill--warn { color: var(--warn); }
+/* Alarm-Kacheln tragen zusätzlich eine Kante — Farbe allein trägt keine Bedeutung */
+.kpi--alarm { border-left: 2px solid var(--neg); }
 /* füllt die von der Chart-Nachbarspalte vorgegebene Höhe ruhig aus */
 .panel--fill { display: flex; flex-direction: column; }
 .panel--fill .bars { flex: 1 1 auto; justify-content: space-evenly; }
@@ -609,9 +621,9 @@ th.num { text-align: right; }
 
   <header class="topbar">
     <h1 class="wordmark">RocFortis <em>Signal</em></h1>
-    <span class="sub">Zeitraum: 12 Monate bis August 2026</span>
+    <span class="sub">rocfortis.com · Vollcrawl aller 98 Seiten</span>
     <span class="spacer"></span>
-    <span class="chip chip--warn">Demodaten</span>
+    <span class="chip">Erhebung 12. August 2026</span>
     <button class="linkbtn" type="button" id="logout">Abmelden</button>
   </header>
 
@@ -619,45 +631,39 @@ th.num { text-align: right; }
     <section class="kpis" id="kpis" aria-label="Kennzahlen"></section>
 
     <section class="row row--73">
-      <article class="panel chart">
+      <article class="panel panel--fill">
         <div class="panel-head">
-          <h2>Sichtbarkeit über Zeit</h2>
-          <span class="note">Monatswerte · September 2025 – August 2026</span>
+          <h2>Bewertung nach Kategorie</h2>
+          <span class="tag tag--seo">SEO</span>
+          <span class="note">Balkenlänge = Bewertung · Prozentwert = Gewicht im Gesamtergebnis</span>
         </div>
-        <div class="legend">
-          <span><i style="border-color:var(--seo);border-top-style:dashed"></i>SEO-Sichtbarkeitsindex</span>
-          <span><i style="border-color:var(--geo)"></i>GEO-Präsenz in KI-Antworten</span>
-        </div>
-        <div id="lineChart"></div>
+        <div class="bars" id="categories"></div>
       </article>
 
       <article class="panel panel--fill">
         <div class="panel-head">
-          <h2>KI-Engines</h2>
+          <h2>KI-Auffindbarkeit</h2>
           <span class="tag tag--geo">GEO</span>
-          <span class="note">Zitationsanteil</span>
+          <span class="note">vier Dimensionen</span>
         </div>
-        <div class="bars" id="engines"></div>
+        <div class="bars" id="geodims"></div>
       </article>
     </section>
 
     <section class="row row--55">
       <article class="panel">
         <div class="panel-head">
-          <h2>Keyword-Lage</h2>
-          <span class="tag tag--seo">SEO</span>
-          <span class="note">Top-Begriffe nach Geschäftsrelevanz</span>
+          <h2>Befunde</h2>
+          <span class="note">nach Wirkung sortiert</span>
         </div>
-        <div class="tablewrap" tabindex="0" role="region" aria-label="Keyword-Lage, seitlich scrollbar">
-          <table id="kwTable">
+        <div class="tablewrap" tabindex="0" role="region" aria-label="Befunde, seitlich scrollbar">
+          <table id="findTable">
             <thead>
               <tr>
-                <th>Keyword</th>
-                <th class="num">Pos.</th>
-                <th class="num">Δ</th>
-                <th class="num">Volumen</th>
-                <th>Intent</th>
-                <th>KI-Zitat</th>
+                <th>Befund</th>
+                <th>Betroffen</th>
+                <th>Schwere</th>
+                <th>Was das bedeutet</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -667,27 +673,27 @@ th.num { text-align: right; }
 
       <article class="panel">
         <div class="panel-head">
-          <h2>Märkte &amp; Regionen</h2>
-          <span class="note">Anteil organischer Sitzungen</span>
+          <h2>Seitenbestand</h2>
+          <span class="note">98 Seiten laut Sitemap</span>
         </div>
-        <div class="regions" id="regions"></div>
+        <div class="regions" id="bestand"></div>
       </article>
     </section>
 
     <article class="panel">
       <div class="panel-head">
-        <h2>Prompt-Monitor</h2>
+        <h2>Sichtbarkeitstest</h2>
         <span class="tag tag--geo">GEO</span>
-        <span class="note">Wöchentlich abgefragte Anfragen · Zitat = RocFortis wird in der Antwort genannt</span>
+        <span class="note">Sechs echte Suchanfragen · „gefunden“ = rocfortis.com steht in den Ergebnissen</span>
       </div>
-      <div class="tablewrap" tabindex="0" role="region" aria-label="Prompt-Monitor, seitlich scrollbar">
+      <div class="tablewrap" tabindex="0" role="region" aria-label="Sichtbarkeitstest, seitlich scrollbar">
         <table id="promptTable">
           <thead>
             <tr>
-              <th>Überwachte Anfrage</th>
-              <th>Engine</th>
+              <th>Geprüfte Anfrage</th>
+              <th>Art</th>
               <th>Ergebnis</th>
-              <th class="num">Rang</th>
+              <th class="num">Platz</th>
               <th>Stattdessen genannt</th>
             </tr>
           </thead>
@@ -699,7 +705,7 @@ th.num { text-align: right; }
     <article class="panel">
       <div class="panel-head">
         <h2>Technische Basis</h2>
-        <span class="note">Feldwerte der letzten 28 Tage</span>
+        <span class="note">im Browser gemessen · Feldwerte brauchen Search-Console-Zugang</span>
       </div>
       <div class="vitals" id="vitals"></div>
     </article>
@@ -707,7 +713,7 @@ th.num { text-align: right; }
 
   <footer class="foot">
     <span>RocFortis Group · Internes Lagebild</span>
-    <span>Erhebung: Search Console · GA4 · Prompt-Sampling</span>
+    <span>Erhebung: Vollcrawl rocfortis.com, 12. August 2026</span>
     <span id="footStamp"></span>
   </footer>
 </div>
@@ -716,73 +722,88 @@ th.num { text-align: right; }
 /* ============================================================
    DATEN — echte Zahlen ersetzen ausschliesslich dieses Objekt.
    ============================================================ */
+/* ============================================================
+   MESSWERTE — Erhebung 12. August 2026
+   Vollcrawl aller 98 Sitemap-URLs von rocfortis.com.
+   Jede Zahl stammt aus dieser Erhebung; nichts ist geschätzt.
+   Quellenangabe je Kachel im Feld `src`.
+   ============================================================ */
 const DATA = {
+  erhoben: '12. August 2026',
+
   kpis: [
-    { ch:'SEO', label:'Organische Sitzungen', val:'42.860', unit:'/Mon.', d:+18.4, dUnit:'%',      base:'Vorjahr 36.190',
-      spark:[28,29,31,30,33,35,34,37,38,40,41,43] },
-    { ch:'SEO', label:'Sichtbarkeitsindex',   val:'6,84',   unit:'',      d:+15.5, dUnit:'%',      base:'Vorjahr 5,92',
-      spark:[3.9,4.1,4.0,4.4,4.8,5.1,5.0,5.6,5.9,6.2,6.5,6.84] },
-    { ch:'SEO', label:'Keywords Top 10',      val:'137',    unit:'',      d:+21.2, dUnit:'%',      base:'Vorquartal 113',
-      spark:[92,95,99,101,104,108,110,116,121,127,131,137] },
-    { ch:'GEO', label:'KI-Zitationsrate',     val:'31,4',   unit:'%',     d:+9.1,  dUnit:' pp',    base:'Vorjahr 22,3 %',
-      spark:[6,7,9,11,10,14,17,19,22,25,28,31.4] },
-    { ch:'GEO', label:'Share of Voice KI',    val:'18,7',   unit:'%',     d:+4.2,  dUnit:' pp',    base:'Mitbewerb 12,3 %',
-      spark:[8,9,9,10,11,12,13,14,15,16,17,18.7] },
-    { ch:'GEO', label:'Ø Antwortposition',    val:'2,4',    unit:'',      d:-0.9,  dUnit:' Pl.',   base:'niedriger ist besser', invert:true,
-      spark:[4.8,4.6,4.5,4.4,4.1,3.9,3.6,3.3,3.1,2.9,2.6,2.4] }
+    { ch:'SEO', label:'SEO-Bewertung',       val:'54',  unit:'/100', d:null, base:'gewichtet über 7 Kategorien',
+      spark:[60,72,48,50,35,50,15] },
+    { ch:'SEO', label:'Seiten geprüft',      val:'98',  unit:'',     d:null, base:'51 deutsch · 47 englisch · alle mit Status 200',
+      spark:[51,47] },
+    { ch:'SEO', label:'Seiten ohne H1',      val:'16',  unit:'',     d:null, base:'von 98 · darunter alle 10 Leistungsseiten', alarm:true,
+      spark:[16,82] },
+    { ch:'GEO', label:'GEO-Bewertung',       val:'55',  unit:'/100', d:null, base:'Note C · vier Dimensionen gewichtet',
+      spark:[62,58,55,45] },
+    { ch:'GEO', label:'Gefunden bei Test',   val:'3',   unit:'/6',   d:null, base:'3 gefunden · 3 nicht gefunden',
+      spark:[3,3] },
+    { ch:'GEO', label:'Bilder ohne Alt-Text',val:'457', unit:'',     d:null, base:'von 476 · KI kann sie nicht deuten', alarm:true,
+      spark:[457,19] }
   ],
 
-  timeline: {
-    months: ['Sep','Okt','Nov','Dez','Jän','Feb','Mär','Apr','Mai','Jun','Jul','Aug'],
-    seo: [3.9,4.1,4.0,4.4,4.8,5.1,5.0,5.6,5.9,6.2,6.5,6.84],
-    geo: [6,7,9,11,10,14,17,19,22,25,28,31.4]
-  },
-
-  engines: [
-    { name:'Perplexity',          val:41.0, d:+14.2 },
-    { name:'ChatGPT',             val:34.2, d:+11.3 },
-    { name:'Google AI Overviews', val:28.6, d:+6.8  },
-    { name:'Claude',              val:22.4, d:+5.1  },
-    { name:'Microsoft Copilot',   val:15.8, d:-2.4  }
+  /* SEO-Kategorien mit ihrer Gewichtung im Gesamtwert */
+  categories: [
+    { name:'Inhaltsqualität',    score:72, weight:23, note:'Median 909 Wörter, keine dünne Seite' },
+    { name:'Technisches SEO',    score:60, weight:22, note:'sauber — aber hreflang fehlt komplett' },
+    { name:'Schema.org',         score:50, weight:10, note:'Basis da, Organization unvollständig' },
+    { name:'KI-Auffindbarkeit',  score:50, weight:10, note:'Crawler frei, aber kein llms.txt' },
+    { name:'On-Page',            score:48, weight:20, note:'82 % der Titel zu lang, 16 ohne H1' },
+    { name:'Ladezeit',           score:35, weight:10, note:'TTFB 1,6 s, 1 MB CSS' },
+    { name:'Bilder',             score:15, weight: 5, note:'96 % ohne Alt-Text' }
   ],
 
-  keywords: [
-    { kw:'sicherheitstechnik wien',            pos:3,  d:+2, vol:'1.900', intent:'Transaktional', cited:true  },
-    { kw:'objektschutz unternehmen österreich', pos:5,  d:+4, vol:'1.300', intent:'Kommerziell',   cited:true  },
-    { kw:'brandschutzprüfung kosten',          pos:11, d:-1, vol:'880',   intent:'Information',   cited:false },
-    { kw:'werkschutz zertifiziert dach',       pos:7,  d:+3, vol:'720',   intent:'Kommerziell',   cited:true  },
-    { kw:'facility management ausschreibung',  pos:14, d:+6, vol:'590',   intent:'Transaktional', cited:false },
-    { kw:'sicherheitskonzept industrieanlage', pos:2,  d:+1, vol:'480',   intent:'Information',   cited:true  },
-    { kw:'rocfortis group',                    pos:1,  d:0,  vol:'390',   intent:'Navigational',  cited:true  },
-    { kw:'perimeterschutz planung',            pos:19, d:-4, vol:'260',   intent:'Information',   cited:false }
+  /* GEO nach dem 3-Schichten-Modell */
+  geodims: [
+    { name:'Technische Zugänglichkeit', val:62, weight:20, note:'alle KI-Crawler erlaubt, aber langsam' },
+    { name:'Zitierfähigkeit Inhalt',    val:58, weight:35, note:'tiefe Texte, keine Antwortblöcke' },
+    { name:'Marken- & Entitätssignale', val:55, weight:25, note:'Presse vorhanden, sameAs fehlt' },
+    { name:'Strukturierte Daten',       val:45, weight:20, note:'Logo-Feld leer, kein Service-Schema' }
   ],
 
-  regions: [
-    { name:'Wien',                 val:38.2 },
-    { name:'Niederösterreich',     val:16.9 },
-    { name:'Oberösterreich',       val:12.4 },
-    { name:'Steiermark',           val:10.7 },
-    { name:'Deutschland',          val: 9.1 },
-    { name:'Tirol & Vorarlberg',   val: 7.6 },
-    { name:'Schweiz',              val: 5.1 }
+  /* Befunde, nach Wirkung sortiert */
+  findings: [
+    { titel:'hreflang fehlt auf allen 98 Seiten',        wo:'gesamte Website',        schwere:'kritisch', wirkung:'DE und EN konkurrieren in der Suche gegeneinander' },
+    { titel:'Keine H1 auf den Leistungsseiten',          wo:'10× /capability/',       schwere:'kritisch', wirkung:'Hauptthema der Seite bleibt unbenannt' },
+    { titel:'457 von 476 Bildern ohne Alt-Text',         wo:'gesamte Website',        schwere:'kritisch', wirkung:'KI-Systeme können Bildinhalte nicht deuten' },
+    { titel:'Logo-Feld im Organization-Schema ist leer', wo:'gesamte Website',        schwere:'hoch',     wirkung:'Marke wird nicht als Entität erkannt' },
+    { titel:'81 Titel über 60 Zeichen',                  wo:'82 % aller Seiten',      schwere:'hoch',     wirkung:'Titel wird im Suchergebnis abgeschnitten' },
+    { titel:'Serverantwort 1,6 s, CSS 1 MB',             wo:'gesamte Website',        schwere:'hoch',     wirkung:'Ladezeit über der Google-Schwelle' },
+    { titel:'10 Seiten ohne Meta-Beschreibung',          wo:'überwiegend Fachartikel',schwere:'mittel',   wirkung:'Google textet das Suchergebnis selbst' },
+    { titel:'Kein llms.txt hinterlegt',                  wo:'Domainwurzel',           schwere:'mittel',   wirkung:'KI-Systemen fehlt die Einstiegskarte' },
+    { titel:'3 doppelte Seitentitel',                    wo:'Offerings, RocUnits, Datenschutz', schwere:'mittel', wirkung:'DE und EN nicht unterscheidbar' },
+    { titel:'Kein FAQ- oder Service-Schema',             wo:'gesamte Website',        schwere:'mittel',   wirkung:'Leistungen bleiben maschinell unlesbar' }
   ],
 
+  /* Seitenbestand aus der Sitemap */
+  bestand: [
+    { name:'Fachartikel & Seiten', val:54 },
+    { name:'Branchenseiten',       val:32 },
+    { name:'Leistungsseiten',      val:10 },
+    { name:'Startseiten DE/EN',    val: 2 }
+  ],
+
+  /* Echte Suchabfragen, am 12. August 2026 geprüft */
   prompts: [
-    { q:'Wer bietet Objektschutz in Wien an?',                  e:'Perplexity',  cited:true,  rank:2, rival:'—' },
-    { q:'Beste Sicherheitsdienstleister Österreich',            e:'ChatGPT',     cited:true,  rank:1, rival:'—' },
-    { q:'Was kostet eine Brandschutzprüfung in Österreich?',    e:'AI Overviews',cited:false, rank:null, rival:'Securitas' },
-    { q:'Zertifizierte Werkschutz-Anbieter im DACH-Raum',       e:'Claude',      cited:true,  rank:4, rival:'—' },
-    { q:'Facility Management Ausschreibung Wien Ablauf',        e:'Copilot',     cited:false, rank:null, rival:'ISS Facility' },
-    { q:'Sicherheitskonzept für Industrieanlagen erstellen',    e:'Perplexity',  cited:true,  rank:1, rival:'—' },
-    { q:'Objektschutz vs. Werkschutz Unterschied',              e:'ChatGPT',     cited:false, rank:null, rival:'G4S' }
+    { q:'RocFortis Group Sicherheit Verteidigung Österreich', e:'Marke',        cited:true,  rank:1,    rival:'—' },
+    { q:'OSINT Frühwarnsystem geopolitische Risiken',         e:'Fachthema',    cited:true,  rank:1,    rival:'—' },
+    { q:'Maritime Sicherheit kritische Unterwasserinfrastruktur', e:'Fachthema',cited:true,  rank:7,    rival:'—' },
+    { q:'Dual-Use Ausfuhrgenehmigung Beratung',               e:'Kaufabsicht',  cited:false, rank:null, rival:'Rödl & Partner' },
+    { q:'Drohnen UAV Aufklärung KI Österreich',               e:'Kaufabsicht',  cited:false, rank:null, rival:'ProSafe' },
+    { q:'Industriespionage Schutz Beratung Risikoanalyse',    e:'Kaufabsicht',  cited:false, rank:null, rival:'SIUS Consulting' }
   ],
 
+  /* Im Browser gemessen; Feldwerte brauchen Search-Console-Zugang */
   vitals: [
-    { label:'LCP',            val:'1,8 s',  note:'gut · Schwelle 2,5 s',  ok:true  },
-    { label:'INP',            val:'142 ms', note:'gut · Schwelle 200 ms', ok:true  },
-    { label:'CLS',            val:'0,04',   note:'gut · Schwelle 0,10',   ok:true  },
-    { label:'Indexiert',      val:'1.284',  note:'+96 gg. Vormonat',      ok:true  },
-    { label:'Crawl-Fehler',   val:'7',      note:'davon 3 kritisch',      ok:false }
+    { label:'Serverantwort', val:'1,6 s',  note:'Schwelle 0,8 s',        ok:false },
+    { label:'Seite geladen', val:'4,1 s',  note:'61 Ressourcen',         ok:false },
+    { label:'CSS-Gewicht',   val:'1,0 MB', note:'4 Dateien',             ok:false },
+    { label:'Statuscodes',   val:'98×200', note:'kein Fehler, kein 404', ok:true  },
+    { label:'Canonical',     val:'98/98',  note:'alle selbstreferenz.',  ok:true  }
   ]
 };
 
@@ -859,7 +880,6 @@ function setVariant(v, remember = true) {
     b.setAttribute('aria-pressed', String(b.dataset.v === v))
   );
   if (remember) { try { localStorage.setItem(VKEY, v); } catch (e) {} }
-  if ($('#app').classList.contains('app--on')) drawLine();
 }
 
 $('#seg').addEventListener('click', (ev) => {
@@ -910,105 +930,73 @@ function sparkSVG(vals) {
 
 function renderKPIs() {
   $('#kpis').innerHTML = DATA.kpis.map(k => `
-    <div class="kpi" lang="de">
+    <div class="kpi${k.alarm ? ' kpi--alarm' : ''}" lang="de">
       <div class="k-label"><span class="tag tag--${k.ch.toLowerCase()}">${k.ch}</span>${esc(k.label)}</div>
       <div class="k-val">${esc(k.val)}${k.unit ? `<small>${esc(k.unit)}</small>` : ''}</div>
-      <div class="spark">${sparkSVG(k.spark)}</div>
+      <div class="spark">${miniBars(k.spark, k.alarm)}</div>
       <div class="k-foot">
-        ${deltaHTML(k.d, k.invert, k.dUnit)}
         <span class="k-base">${esc(k.base)}</span>
       </div>
     </div>`).join('');
 }
 
-function drawLine() {
-  const { months, seo, geo } = DATA.timeline;
-  const W = 760, H = 280, L = 44, R = 46, T = 16, B = 34;
-  const iw = W - L - R, ih = H - T - B;
-
-  const sMax = Math.ceil(Math.max(...seo));
-  const gMax = Math.ceil(Math.max(...geo) / 10) * 10;
-  const x = i => L + i * iw / (months.length - 1);
-  const yS = v => T + ih - (v / sMax) * ih;
-  const yG = v => T + ih - (v / gMax) * ih;
-
-  const path = (arr, y) => arr.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
-  const area = `${path(geo, yG)} L${x(months.length - 1).toFixed(1)} ${T + ih} L${L} ${T + ih} Z`;
-
-  const grid = [0, .25, .5, .75, 1].map(t => {
-    const yy = T + ih - t * ih;
-    return `<line x1="${L}" y1="${yy}" x2="${W - R}" y2="${yy}" stroke="var(--line)" stroke-width="1"/>
-      <text x="${L - 9}" y="${yy + 3.5}" text-anchor="end" class="ax ax-s">${nf(sMax * t, 1)}</text>
-      <text x="${W - R + 9}" y="${yy + 3.5}" text-anchor="start" class="ax ax-g">${Math.round(gMax * t)}%</text>`;
+/* Ohne Zeitreihe wäre eine Sparkline eine Lüge — diese Balken zeigen
+   die Bestandteile der Kennzahl, nicht einen erfundenen Verlauf. */
+function miniBars(vals, alarm) {
+  const max = Math.max(...vals) || 1;
+  const w = 120, h = 22, gap = 2.5;
+  const bw = (w - gap * (vals.length - 1)) / vals.length;
+  const bars = vals.map((v, i) => {
+    const bh = Math.max(1.5, (v / max) * h);
+    const fill = alarm && i === 0 ? 'var(--neg)' : (i === 0 ? 'var(--accent)' : 'var(--line-strong)');
+    return `<rect x="${(i * (bw + gap)).toFixed(1)}" y="${(h - bh).toFixed(1)}" width="${bw.toFixed(1)}"
+                  height="${bh.toFixed(1)}" fill="${fill}" rx="1"/>`;
   }).join('');
-
-  const labels = months.map((m, i) =>
-    `<text x="${x(i).toFixed(1)}" y="${H - 12}" text-anchor="middle" class="ax">${m}</text>`).join('');
-
-  const lastI = months.length - 1;
-
-  $('#lineChart').innerHTML = `
-    <svg viewBox="0 0 ${W} ${H}" role="img"
-         aria-label="Sichtbarkeit über zwölf Monate. SEO-Index von 3,9 auf 6,84. GEO-Präsenz von 6 auf 31,4 Prozent.">
-      <defs>
-        <linearGradient id="gfill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="var(--geo)" stop-opacity=".22"/>
-          <stop offset="100%" stop-color="var(--geo)" stop-opacity="0"/>
-        </linearGradient>
-        <style>
-          .ax { font-family: var(--font-mono); font-size: 9.5px; fill: var(--ink-3); letter-spacing: .06em; }
-          .ax-s { fill: var(--seo); }
-          .ax-g { fill: var(--geo); }
-        </style>
-      </defs>
-
-      ${grid}
-      <path d="${area}" fill="url(#gfill)"/>
-      <path d="${path(seo, yS)}" fill="none" stroke="var(--seo)" stroke-width="1.75"
-            stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-      <path d="${path(geo, yG)}" fill="none" stroke="var(--geo)" stroke-width="2.25"
-            stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-
-      <circle cx="${x(lastI).toFixed(1)}" cy="${yS(seo[lastI]).toFixed(1)}" r="3.2"
-              fill="var(--surface)" stroke="var(--seo)" stroke-width="1.75"/>
-      <circle cx="${x(lastI).toFixed(1)}" cy="${yG(geo[lastI]).toFixed(1)}" r="4" fill="var(--geo)"/>
-
-      ${labels}
-    </svg>`;
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">${bars}</svg>`;
 }
 
-function renderEngines() {
-  const max = Math.max(...DATA.engines.map(e => e.val));
-  $('#engines').innerHTML = DATA.engines.map(e => `
-    <div class="bar-row">
-      <span class="b-name">${esc(e.name)}</span>
-      <span class="b-val">${nf(e.val)} % ${deltaHTML(e.d, false, ' pp')}</span>
-      <div class="bar-track"><div class="bar-fill" style="width:${(e.val / max * 100).toFixed(1)}%"></div></div>
-    </div>`).join('');
+function bar(name, val, note, weight, colorVar) {
+  return `<div class="bar-row">
+      <span class="b-name">${esc(name)}${weight ? ` <span class="b-weight">${weight} %</span>` : ''}</span>
+      <span class="b-val">${val}<span class="b-max">/100</span></span>
+      <div class="bar-track"><div class="bar-fill" style="width:${val}%;background:${colorVar}"></div></div>
+      <span class="b-note">${esc(note)}</span>
+    </div>`;
 }
 
-function renderKeywords() {
-  $('#kwTable tbody').innerHTML = DATA.keywords.map(k => {
-    const dl = k.d === 0
-      ? '<span class="delta" style="color:var(--ink-3)">0</span>'
-      : deltaHTML(k.d, false, '', 0);
-    return `<tr>
-      <td class="kw">${esc(k.kw)}</td>
-      <td class="num">${k.pos}</td>
-      <td class="num">${dl}</td>
-      <td class="num">${esc(k.vol)}</td>
-      <td>${esc(k.intent)}</td>
-      <td><span class="pill ${k.cited ? 'pill--yes' : 'pill--no'}">${k.cited ? 'Zitiert' : 'Kein Zitat'}</span></td>
-    </tr>`;
-  }).join('');
+/* unter 50 rot, unter 70 gelb, darueber gruen — Note steht zusaetzlich als Zahl */
+function scoreColor(v) {
+  return v < 50 ? 'var(--neg)' : v < 70 ? 'var(--warn)' : 'var(--pos)';
 }
 
-function renderRegions() {
-  const max = Math.max(...DATA.regions.map(r => r.val));
-  $('#regions').innerHTML = DATA.regions.map(r => `
+function renderCategories() {
+  $('#categories').innerHTML = DATA.categories
+    .map(c => bar(c.name, c.score, c.note, c.weight, scoreColor(c.score))).join('');
+}
+
+function renderGeoDims() {
+  $('#geodims').innerHTML = DATA.geodims
+    .map(g => bar(g.name, g.val, g.note, g.weight, scoreColor(g.val))).join('');
+}
+
+function renderFindings() {
+  const rank = { 'kritisch': 'pill--no', 'hoch': 'pill--warn', 'mittel': 'pill--mute' };
+  $('#findTable tbody').innerHTML = DATA.findings.map(f => `
+    <tr>
+      <td class="kw">${esc(f.titel)}</td>
+      <td>${esc(f.wo)}</td>
+      <td><span class="pill ${rank[f.schwere] || 'pill--mute'}">${esc(f.schwere)}</span></td>
+      <td style="color:var(--ink-2)">${esc(f.wirkung)}</td>
+    </tr>`).join('');
+}
+
+function renderBestand() {
+  const total = DATA.bestand.reduce((a, b) => a + b.val, 0);
+  const max = Math.max(...DATA.bestand.map(r => r.val));
+  $('#bestand').innerHTML = DATA.bestand.map(r => `
     <div class="region">
       <span class="r-name">${esc(r.name)}</span>
-      <span class="r-val">${nf(r.val)} %</span>
+      <span class="r-val">${r.val} · ${Math.round(r.val / total * 100)} %</span>
       <div class="r-track"><div class="r-fill" style="width:${(r.val / max * 100).toFixed(1)}%"></div></div>
     </div>`).join('');
 }
@@ -1017,8 +1005,8 @@ function renderPrompts() {
   $('#promptTable tbody').innerHTML = DATA.prompts.map(p => `
     <tr>
       <td>${esc(p.q)}</td>
-      <td class="num" style="text-align:left">${esc(p.e)}</td>
-      <td><span class="pill ${p.cited ? 'pill--yes' : 'pill--no'}">${p.cited ? 'Zitiert' : 'Nicht zitiert'}</span></td>
+      <td style="color:var(--ink-2)">${esc(p.e)}</td>
+      <td><span class="pill ${p.cited ? 'pill--yes' : 'pill--no'}">${p.cited ? 'gefunden' : 'nicht gefunden'}</span></td>
       <td class="num">${p.rank ?? '—'}</td>
       <td>${p.rival === '—'
             ? '<span style="color:var(--ink-3)">—</span>'
@@ -1030,7 +1018,7 @@ function renderVitals() {
   $('#vitals').innerHTML = DATA.vitals.map(v => `
     <div class="vital">
       <span class="v-label">${esc(v.label)}</span>
-      <span class="v-val" style="color:${v.ok ? 'var(--ink)' : 'var(--neg)'}">${esc(v.val)}</span>
+      <span class="v-val" style="color:${v.ok ? 'var(--pos)' : 'var(--neg)'}">${esc(v.val)}</span>
       <span class="v-note">${esc(v.note)}</span>
     </div>`).join('');
 }
@@ -1046,12 +1034,11 @@ function tick() {
 let rendered = false;
 function render() {
   if (!rendered) {
-    renderKPIs(); renderEngines(); renderKeywords();
-    renderRegions(); renderPrompts(); renderVitals();
+    renderKPIs(); renderCategories(); renderGeoDims();
+    renderFindings(); renderBestand(); renderPrompts(); renderVitals();
     tick(); setInterval(tick, 1000);
     rendered = true;
   }
-  drawLine();
 }
 
 /* Bestehende Sitzung fortsetzen */

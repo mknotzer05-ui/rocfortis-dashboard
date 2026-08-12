@@ -1,0 +1,54 @@
+# RocFortis Group
+
+> RocFortis Group ist eine strategische Beratungsgruppe für Sicherheit, Risikomanagement und Krisenreaktion mit Sitz in Wien. Sie verbindet Nachrichtengewinnung, physische und digitale Sicherheit, Verteidigungsprojektentwicklung und strategische Beratung für Unternehmen, Regierungen und internationale Organisationen. Rund 70 Mitarbeiter arbeiten an Standorten in Österreich, Berlin, Istanbul und London.
+
+Die Gruppe gliedert sich in spezialisierte Einheiten: Foreus Intelligence (private Aufklärung, OSINT, Spionageabwehr), SecFortis (physische Sicherheit und Objektschutz in Hochrisikogebieten), C24 Advisory (Sicherheitsberatung, Rüstungsbeschaffung, Verteidigungsstrategie) und QFortis (KI-gestützte Sicherheitssoftware und autonome Überwachungstechnik). Die operative Arbeit ist in fünf Domänen gegliedert: SEA, AIR, LAND, SUPPLY und INTEL. Die Website ist auf Deutsch und Englisch verfügbar; englische Fassungen liegen unter dem Pfad /en/.
+
+## Leistungsdomänen
+- [SEA — Maritime Sicherheit](https://rocfortis.com/capability/sea-maritime-sicherheit-schutz-kritischer-seeinfrastruktur/): Schutz von Seewegen, Offshore-Anlagen und Unterwasserinfrastruktur
+- [AIR — Luftgestützte Aufklärung](https://rocfortis.com/capability/air-aufklaerung-ueberwachung-luftgestuetzte-lagekontrolle/): UAV-Aufklärung und Überwachung mit KI-gestützter Bildauswertung
+- [LAND — Grenzschutz und Robotik](https://rocfortis.com/capability/land-grenzschutz-robotik-urbane-ueberwachung-territoriale-stabilisierung/): Grenzsicherung, Robotik und urbane Überwachungssysteme
+- [SUPPLY — Verteidigungstechnologie](https://rocfortis.com/capability/supply-projektentwicklung-verteidigungstechnologie-systemvertrieb/): Projektentwicklung, taktische Führungszentren, Kommunikationsinfrastruktur
+- [INTEL — Aufklärung und Analyse](https://rocfortis.com/capability/intel-aufklaerung-analyse-intervention-gegenmacht/): Nachrichtengewinnung, Lageanalyse und Intervention
+
+## Branchen
+- [Kritische Infrastruktur und Energie](https://rocfortis.com/offering/kritische-infrastruktur-energie/): Schutz von Energieversorgung und kritischen Anlagen
+- [Verteidigungs- und Sicherheitsindustrie](https://rocfortis.com/offering/verteidigungs-sicherheitsindustrie/): Sicherheitslösungen für Rüstungs- und Sicherheitsunternehmen
+- [Regierungsbehörden und internationale Organisationen](https://rocfortis.com/offering/regierungsbehoerden-internationale-organisationen/): Sicherheitslösungen für staatliche Auftraggeber
+- [Technologie und Telekommunikation](https://rocfortis.com/offering/technologie-telekommunikation/): Cyber Threat Intelligence für IT und Telekommunikation
+- [Luftfahrt, Transport und Logistik](https://rocfortis.com/offering/luftfahrt-transport-logistik/): Schutz globaler Lieferketten und Luftfahrt
+- [Industrie und Fertigung](https://rocfortis.com/offering/industrie-fertigung/): Sicherheit für Produktionsanlagen und Werksgelände
+- [Finanz- und Versicherungsbranche](https://rocfortis.com/offering/finanz-versicherungsbranche/): Schutz vor Finanzkriminalität und Betrug
+- [Gesundheits- und Pharmabranche](https://rocfortis.com/offering/gesundheits-pharmabranche/): Schutz medizinischer Daten und Forschung
+- [Rechts- und Beratungsbranche](https://rocfortis.com/offering/rechts-beratungsbranche/): Rechtssicherheit und Compliance-Intelligence
+- [Medien und Öffentlichkeitsarbeit](https://rocfortis.com/offering/medien-oeffentlichkeitsarbeit/): Schutz vor Desinformation und Cyberangriffen
+- [NGOs und humanitäre Einsätze](https://rocfortis.com/offering/nichtregierungsorganisationen-ngos-humanitaere-einsaetze-in-afrika/): Absicherung humanitärer Einsätze, Schwerpunkt Afrika
+- [Sport und Großveranstaltungen](https://rocfortis.com/offering/sport-grossveranstaltungen/): Sicherheitskonzepte für Stadien und Großevents
+- [Immobilien und Bauwirtschaft](https://rocfortis.com/offering/immobilien-bauwirtschaft/): Sicherheitsstrategien für Immobilien und Bauprojekte
+- [Luxus und Privatkunden](https://rocfortis.com/offering/luxus-privatkunden-hnwis-uhnwis/): Personenschutz und Sicherheitslösungen für Privatkunden
+- [Landwirtschaft und Lebensmittelindustrie](https://rocfortis.com/offering/landwirtschaft-lebensmittelindustrie/): Schutz der Agrar- und Lebensmittelversorgung
+- [Bildung und Forschung](https://rocfortis.com/offering/bildung-forschung/): Schutz akademischer Forschung und Universitäten
+
+## Fachbeiträge
+- [Geopolitische Risikofrüherkennung mit OSINT](https://rocfortis.com/geopolitische-risikofrueherkennung-wie-osint-unternehmen-in-echtzeit-schuetzt/): Wie offene Quellen Unternehmen in Echtzeit schützen
+- [Dual-Use-Güterrecht und KI](https://rocfortis.com/dual-use-gueterrecht-ki-effiziente-informationsbeschaffung-fuer-schnellere-ausfuhrgenehmigungen/): Informationsbeschaffung für schnellere Ausfuhrgenehmigungen
+- [Dual-Use-Technologien: Chancen und Risiken](https://rocfortis.com/dual-use-technologien-wo-liegen-die-chancen-und-risiken-fuer-sicherheit-wirtschaft/): Abwägung für Sicherheit und Wirtschaft
+- [Cyberkrieg und hybride Kriegsführung](https://rocfortis.com/cyberkrieg-hybride-kriegsfuehrung-die-neuen-herausforderungen-fuer-unternehmen-und-staaten/): Neue Herausforderungen für Unternehmen und Staaten
+- [Industriespionage 4.0](https://rocfortis.com/industriespionage-4-0-wie-sich-unternehmen-gegen-digitale-angriffe-schuetzen-koennen/): Schutz gegen digitale Angriffe auf Betriebswissen
+- [Unternehmenssicherheit 2030](https://rocfortis.com/unternehmenssicherheit-2030-warum-ganzheitliche-risikoanalysen-entscheidend-sind/): Warum ganzheitliche Risikoanalysen entscheidend werden
+- [Red-Flag-Identifikation](https://rocfortis.com/red-flag-identification-fruehwarnsystem-fuer-risiken-im-zeitalter-globaler-unsicherheiten/): Frühwarnsystem für Risiken in unsicheren Zeiten
+- [Autonome Überwachung](https://rocfortis.com/autonome-ueberwachung-die-zukunft-urbaner-sicherheitssysteme/): Die Zukunft urbaner Sicherheitssysteme
+- [Autonomer Krieg und KI](https://rocfortis.com/autonomer-krieg-ki-das-schlachtfeld-neu-definiert/): Wie künstliche Intelligenz das Schlachtfeld verändert
+- [Maschinen-Identitäten und KI-Agenten](https://rocfortis.com/maschinen-identitaeten-ki-agenten-die-unsichtbare-risikoflaeche-2025/): Die unsichtbare Risikofläche autonomer Systeme
+
+## Unternehmen
+- [Institution](https://rocfortis.com/unternehmen/): Auftrag, Aufbau und Selbstverständnis der Gruppe
+- [The Code](https://rocfortis.com/the-code/): Grundsätze der Arbeit
+- [RocUnits](https://rocfortis.com/rocunits/): Die spezialisierten Einheiten der Gruppe
+- [Compliance](https://rocfortis.com/compliance/): Rechtlicher Rahmen und Selbstverpflichtung
+- [News](https://rocfortis.com/news/): Aktuelle Beiträge und Mitteilungen
+- [Kontakt](https://rocfortis.com/kontakt/): Anfragen und Erstgespräch
+
+## Optional
+- [Englische Fassung](https://rocfortis.com/en/): Vollständige Website auf Englisch
+- [Datenschutz](https://rocfortis.com/datenschutzerklarung/): Datenschutzerklärung

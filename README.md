@@ -31,13 +31,25 @@ Farb- und Formtokens, nie die Struktur.
 
 ## Daten
 
-Alle Zahlen sind **Demodaten** und in der Kopfzeile als solche markiert. Sie liegen
-gesammelt im Objekt `DATA` am Anfang des `<script>`-Blocks in `index.html`. Für
-echte Zahlen wird ausschließlich dieses Objekt ersetzt — Layout, Diagramme und
-Tabellen leiten sich vollständig daraus ab.
+Alle Zahlen stammen aus einer eigenen Erhebung vom **12. August 2026**: Vollcrawl
+aller 98 Sitemap-URLs von rocfortis.com, Auswertung der ausgelieferten
+HTML-Dokumente, Browser-Messung der Ladezeiten und sechs echte Suchabfragen.
+Nichts ist geschätzt.
 
-Anzubindende Quellen: Google Search Console und Sistrix oder Ahrefs für SEO, GA4
-für Sitzungen, ein GEO-Monitoring für den Prompt-Monitor.
+Die vollständigen Befunde mit Maßnahmenplan stehen in [AUDIT.md](AUDIT.md).
+Kurzfassung: SEO 54/100, GEO 55/100. Drei kritische Punkte — auf allen 98 Seiten
+fehlt `hreflang`, die fünf Leistungsseiten haben keine H1, und 457 von 476 Bildern
+haben keinen Alt-Text.
+
+Die Werte liegen gesammelt im Objekt `DATA` am Anfang des `<script>`-Blocks in
+`index.html`. Bei jeder Neuerhebung wird nur dieses Objekt ersetzt.
+
+Noch nicht erhoben, weil dafür Zugänge fehlen: Besucherzahlen und Klicks (Search
+Console, GA4), Keyword-Positionen (Sistrix oder Ahrefs), Feldwerte für
+Core Web Vitals und echte Zitationen in ChatGPT oder Perplexity.
+
+Als Beigabe liegt ein fertiger Entwurf für [llms.txt](llms.txt) bei — alle 43
+verlinkten Seiten wurden auf Erreichbarkeit geprüft.
 
 ## Sicherheit
 
