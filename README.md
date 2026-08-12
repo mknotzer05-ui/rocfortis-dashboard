@@ -55,8 +55,12 @@ verlinkten Seiten wurden auf Erreichbarkeit geprüft.
 
 Die Passwortabfrage ist eine **clientseitige Sperre**. Sie hält Gelegenheitszugriffe
 ab, ersetzt aber keine Zugriffskontrolle: Der Seitenquelltext ist einsehbar, und der
-hinterlegte SHA-256-Hash lässt sich offline durchprobieren. Deshalb enthält diese
-Seite ausschließlich Demodaten.
+hinterlegte SHA-256-Hash lässt sich offline durchprobieren.
+
+Die enthaltenen Daten stammen ausschließlich aus öffentlich abrufbaren Quellen —
+der Website selbst und Suchergebnissen. Es sind keine vertraulichen Kundendaten
+darin. Wer das Repository liest, sieht allerdings die Bewertung der Website;
+solange das Repository öffentlich ist, gilt das für jeden.
 
 Vor dem Einsatz mit echten Kundenzahlen braucht es serverseitige Authentifizierung —
 etwa Cloudflare Access vor der Seite oder Auslieferung über einen Server mit
