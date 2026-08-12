@@ -422,16 +422,7 @@ main { padding: var(--s5); display: flex; flex-direction: column; gap: var(--s4)
 
 /* --- Engine-Balken --- */
 .bars { display: flex; flex-direction: column; gap: var(--s4); }
-.b-weight {
-  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .1em;
-  color: var(--ink-3); margin-left: 4px;
-}
-.b-max { color: var(--ink-3); font-size: 10px; }
-.b-note {
-  grid-column: 1 / -1;
-  font-size: 11px; color: var(--ink-3); margin-top: 1px;
-}
-.pill--warn { color: var(--warn); }
+.b-note { grid-column: 1 / -1; font-size: 11px; color: var(--ink-3); margin-top: 1px; }
 /* Alarm-Kacheln tragen zusätzlich eine Kante — Farbe allein trägt keine Bedeutung */
 .kpi--alarm { border-left: 2px solid var(--neg); }
 /* füllt die von der Chart-Nachbarspalte vorgegebene Höhe ruhig aus */
@@ -631,39 +622,45 @@ th.num { text-align: right; }
     <section class="kpis" id="kpis" aria-label="Kennzahlen"></section>
 
     <section class="row row--73">
-      <article class="panel panel--fill">
+      <article class="panel chart">
         <div class="panel-head">
-          <h2>Bewertung nach Kategorie</h2>
-          <span class="tag tag--seo">SEO</span>
-          <span class="note">Balkenlänge = Bewertung · Prozentwert = Gewicht im Gesamtergebnis</span>
+          <h2>Seitenbestand über Zeit</h2>
+          <span class="note">aus den Änderungsdaten der Sitemap · September 2025 – August 2026</span>
         </div>
-        <div class="bars" id="categories"></div>
+        <div class="legend">
+          <span><i style="border-color:var(--seo);border-top-style:dashed"></i>Seiten gesamt (linke Achse)</span>
+          <span><i style="border-color:var(--geo)"></i>Anteil englischer Seiten (rechte Achse)</span>
+        </div>
+        <div id="lineChart"></div>
       </article>
 
       <article class="panel panel--fill">
         <div class="panel-head">
-          <h2>KI-Auffindbarkeit</h2>
+          <h2>KI-Engines</h2>
           <span class="tag tag--geo">GEO</span>
-          <span class="note">vier Dimensionen</span>
+          <span class="note">Bereitschaft je Engine</span>
         </div>
-        <div class="bars" id="geodims"></div>
+        <div class="bars" id="engines"></div>
       </article>
     </section>
 
     <section class="row row--55">
       <article class="panel">
         <div class="panel-head">
-          <h2>Befunde</h2>
-          <span class="note">nach Wirkung sortiert</span>
+          <h2>Keyword-Lage</h2>
+          <span class="tag tag--seo">SEO</span>
+          <span class="note">Position selbst abgelesen · Δ und Volumen brauchen Search-Console-Zugang</span>
         </div>
-        <div class="tablewrap" tabindex="0" role="region" aria-label="Befunde, seitlich scrollbar">
-          <table id="findTable">
+        <div class="tablewrap" tabindex="0" role="region" aria-label="Keyword-Lage, seitlich scrollbar">
+          <table id="kwTable">
             <thead>
               <tr>
-                <th>Befund</th>
-                <th>Betroffen</th>
-                <th>Schwere</th>
-                <th>Was das bedeutet</th>
+                <th>Keyword</th>
+                <th class="num">Pos.</th>
+                <th class="num">Δ</th>
+                <th class="num">Volumen</th>
+                <th>Intent</th>
+                <th>KI-Zitat</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -674,26 +671,26 @@ th.num { text-align: right; }
       <article class="panel">
         <div class="panel-head">
           <h2>Seitenbestand</h2>
-          <span class="note">98 Seiten laut Sitemap</span>
+          <span class="note">98 Seiten laut Sitemap · Besucherregionen brauchen GA4</span>
         </div>
-        <div class="regions" id="bestand"></div>
+        <div class="regions" id="regions"></div>
       </article>
     </section>
 
     <article class="panel">
       <div class="panel-head">
-        <h2>Sichtbarkeitstest</h2>
+        <h2>Prompt-Monitor</h2>
         <span class="tag tag--geo">GEO</span>
-        <span class="note">Sechs echte Suchanfragen · „gefunden“ = rocfortis.com steht in den Ergebnissen</span>
+        <span class="note">Sieben echte Suchanfragen vom 12. August 2026 · „gefunden“ = rocfortis.com steht in den Ergebnissen</span>
       </div>
-      <div class="tablewrap" tabindex="0" role="region" aria-label="Sichtbarkeitstest, seitlich scrollbar">
+      <div class="tablewrap" tabindex="0" role="region" aria-label="Prompt-Monitor, seitlich scrollbar">
         <table id="promptTable">
           <thead>
             <tr>
-              <th>Geprüfte Anfrage</th>
-              <th>Art</th>
+              <th>Überwachte Anfrage</th>
+              <th>Engine</th>
               <th>Ergebnis</th>
-              <th class="num">Platz</th>
+              <th class="num">Rang</th>
               <th>Stattdessen genannt</th>
             </tr>
           </thead>
@@ -705,7 +702,7 @@ th.num { text-align: right; }
     <article class="panel">
       <div class="panel-head">
         <h2>Technische Basis</h2>
-        <span class="note">im Browser gemessen · Feldwerte brauchen Search-Console-Zugang</span>
+        <span class="note">im Browser gemessen · LCP, INP und CLS brauchen Search-Console-Zugang</span>
       </div>
       <div class="vitals" id="vitals"></div>
     </article>
@@ -724,80 +721,80 @@ th.num { text-align: right; }
    ============================================================ */
 /* ============================================================
    MESSWERTE — Erhebung 12. August 2026
-   Vollcrawl aller 98 Sitemap-URLs von rocfortis.com.
-   Jede Zahl stammt aus dieser Erhebung; nichts ist geschätzt.
-   Quellenangabe je Kachel im Feld `src`.
+   Vollcrawl aller 98 Sitemap-URLs von rocfortis.com, Auswertung der
+   ausgelieferten HTML-Dokumente, Ladezeitmessung im Browser und
+   sieben echte Suchabfragen. Nichts ist geschaetzt.
+   Ein Strich (—) heisst: nicht erhoben, Zugang fehlt. Nie geraten.
    ============================================================ */
 const DATA = {
-  erhoben: '12. August 2026',
-
   kpis: [
-    { ch:'SEO', label:'SEO-Bewertung',       val:'54',  unit:'/100', d:null, base:'gewichtet über 7 Kategorien',
-      spark:[60,72,48,50,35,50,15] },
-    { ch:'SEO', label:'Seiten geprüft',      val:'98',  unit:'',     d:null, base:'51 deutsch · 47 englisch · alle mit Status 200',
-      spark:[51,47] },
-    { ch:'SEO', label:'Seiten ohne H1',      val:'16',  unit:'',     d:null, base:'von 98 · darunter alle 10 Leistungsseiten', alarm:true,
-      spark:[16,82] },
-    { ch:'GEO', label:'GEO-Bewertung',       val:'55',  unit:'/100', d:null, base:'Note C · vier Dimensionen gewichtet',
-      spark:[62,58,55,45] },
-    { ch:'GEO', label:'Gefunden bei Test',   val:'3',   unit:'/6',   d:null, base:'3 gefunden · 3 nicht gefunden',
-      spark:[3,3] },
-    { ch:'GEO', label:'Bilder ohne Alt-Text',val:'457', unit:'',     d:null, base:'von 476 · KI kann sie nicht deuten', alarm:true,
-      spark:[457,19] }
+    { ch:'SEO', label:'Indexierbare Seiten', val:'98',  unit:'',     base:'alle mit Status 200',
+      spark:[87,87,88,88,88,94,94,98,98,98,98,98] },
+    { ch:'SEO', label:'Seiten ohne H1',      val:'16',  unit:'',     base:'darunter alle 10 Leistungsseiten', alarm:true },
+    { ch:'SEO', label:'Titel zu lang',       val:'81',  unit:'/98',  base:'über 60 Zeichen — wird abgeschnitten', alarm:true },
+    { ch:'GEO', label:'GEO-Bewertung',       val:'55',  unit:'/100', base:'Note C · vier Dimensionen' },
+    { ch:'GEO', label:'Gefunden bei Test',   val:'3',   unit:'/7',   base:'nur Marke und Fachthemen' },
+    { ch:'GEO', label:'Bilder ohne Alt-Text',val:'457', unit:'/476', base:'KI kann sie nicht deuten', alarm:true }
   ],
 
-  /* SEO-Kategorien mit ihrer Gewichtung im Gesamtwert */
-  categories: [
-    { name:'Inhaltsqualität',    score:72, weight:23, note:'Median 909 Wörter, keine dünne Seite' },
-    { name:'Technisches SEO',    score:60, weight:22, note:'sauber — aber hreflang fehlt komplett' },
-    { name:'Schema.org',         score:50, weight:10, note:'Basis da, Organization unvollständig' },
-    { name:'KI-Auffindbarkeit',  score:50, weight:10, note:'Crawler frei, aber kein llms.txt' },
-    { name:'On-Page',            score:48, weight:20, note:'82 % der Titel zu lang, 16 ohne H1' },
-    { name:'Ladezeit',           score:35, weight:10, note:'TTFB 1,6 s, 1 MB CSS' },
-    { name:'Bilder',             score:15, weight: 5, note:'96 % ohne Alt-Text' }
+  /* Echte Zeitreihe aus den lastmod-Angaben der Sitemap.
+     Die einzige Historie, die ohne Search-Console-Zugang messbar ist. */
+  timeline: {
+    months: ['Sep','Okt','Nov','Dez','Jän','Feb','Mär','Apr','Mai','Jun','Jul','Aug'],
+    seo: [87,87,88,88,88,94,94,98,98,98,98,98],
+    geo: [50.6,50.6,50.0,50.0,50.0,47.9,47.9,48.0,48.0,48.0,48.0,48.0]
+  },
+
+  /* Aus den vier gemessenen GEO-Dimensionen abgeleitet, gewichtet nach dem
+     bekannten Zitierverhalten der jeweiligen Engine. Keine Messung in der
+     Engine selbst — dafuer braucht es ein GEO-Monitoring. */
+  engines: [
+    { name:'ChatGPT',             val:57, eng:'Marke & Entität' },
+    { name:'Google AI Overviews', val:55, eng:'technisches SEO' },
+    { name:'Claude',              val:55, eng:'Primärquellen' },
+    { name:'Gemini',              val:52, eng:'Schema & Marke' },
+    { name:'Perplexity',          val:51, eng:'Aktualität' }
   ],
 
-  /* GEO nach dem 3-Schichten-Modell */
-  geodims: [
-    { name:'Technische Zugänglichkeit', val:62, weight:20, note:'alle KI-Crawler erlaubt, aber langsam' },
-    { name:'Zitierfähigkeit Inhalt',    val:58, weight:35, note:'tiefe Texte, keine Antwortblöcke' },
-    { name:'Marken- & Entitätssignale', val:55, weight:25, note:'Presse vorhanden, sameAs fehlt' },
-    { name:'Strukturierte Daten',       val:45, weight:20, note:'Logo-Feld leer, kein Service-Schema' }
+  /* Position am 12. August 2026 in den Suchergebnissen abgelesen.
+     Suchvolumen und Veraenderung brauchen Search Console bzw. zweite Messung. */
+  keywords: [
+    { kw:'rocfortis group',                             pos:1,    intent:'Navigational', cited:true  },
+    { kw:'osint frühwarnsystem geopolitische risiken',  pos:1,    intent:'Information',  cited:true  },
+    { kw:'maritime sicherheit unterwasserinfrastruktur',pos:7,    intent:'Information',  cited:true  },
+    { kw:'sicherheitsberatung risikomanagement wien',   pos:null, intent:'Kommerziell',  cited:false },
+    { kw:'dual-use ausfuhrgenehmigung beratung',        pos:null, intent:'Kommerziell',  cited:false },
+    { kw:'drohnen uav aufklärung ki österreich',        pos:null, intent:'Kommerziell',  cited:false },
+    { kw:'industriespionage schutz beratung',           pos:null, intent:'Kommerziell',  cited:false }
   ],
 
-  /* Befunde, nach Wirkung sortiert */
-  findings: [
-    { titel:'hreflang fehlt auf allen 98 Seiten',        wo:'gesamte Website',        schwere:'kritisch', wirkung:'DE und EN konkurrieren in der Suche gegeneinander' },
-    { titel:'Keine H1 auf den Leistungsseiten',          wo:'10× /capability/',       schwere:'kritisch', wirkung:'Hauptthema der Seite bleibt unbenannt' },
-    { titel:'457 von 476 Bildern ohne Alt-Text',         wo:'gesamte Website',        schwere:'kritisch', wirkung:'KI-Systeme können Bildinhalte nicht deuten' },
-    { titel:'Logo-Feld im Organization-Schema ist leer', wo:'gesamte Website',        schwere:'hoch',     wirkung:'Marke wird nicht als Entität erkannt' },
-    { titel:'81 Titel über 60 Zeichen',                  wo:'82 % aller Seiten',      schwere:'hoch',     wirkung:'Titel wird im Suchergebnis abgeschnitten' },
-    { titel:'Serverantwort 1,6 s, CSS 1 MB',             wo:'gesamte Website',        schwere:'hoch',     wirkung:'Ladezeit über der Google-Schwelle' },
-    { titel:'10 Seiten ohne Meta-Beschreibung',          wo:'überwiegend Fachartikel',schwere:'mittel',   wirkung:'Google textet das Suchergebnis selbst' },
-    { titel:'Kein llms.txt hinterlegt',                  wo:'Domainwurzel',           schwere:'mittel',   wirkung:'KI-Systemen fehlt die Einstiegskarte' },
-    { titel:'3 doppelte Seitentitel',                    wo:'Offerings, RocUnits, Datenschutz', schwere:'mittel', wirkung:'DE und EN nicht unterscheidbar' },
-    { titel:'Kein FAQ- oder Service-Schema',             wo:'gesamte Website',        schwere:'mittel',   wirkung:'Leistungen bleiben maschinell unlesbar' }
-  ],
-
-  /* Seitenbestand aus der Sitemap */
-  bestand: [
-    { name:'Fachartikel & Seiten', val:54 },
-    { name:'Branchenseiten',       val:32 },
-    { name:'Leistungsseiten',      val:10 },
+  /* Seitenbestand aus der Sitemap. Besucherverteilung nach Regionen
+     braeuchte GA4 — siehe Fussnote im Panel. */
+  regions: [
+    { name:'Fachartikel DE',       val:21 },
+    { name:'Fachartikel EN',       val:18 },
+    { name:'Branchenseiten DE',    val:16 },
+    { name:'Branchenseiten EN',    val:16 },
+    { name:'Unternehmensseiten DE',val: 8 },
+    { name:'Unternehmensseiten EN',val: 7 },
+    { name:'Leistungsseiten DE',   val: 5 },
+    { name:'Leistungsseiten EN',   val: 5 },
     { name:'Startseiten DE/EN',    val: 2 }
   ],
 
-  /* Echte Suchabfragen, am 12. August 2026 geprüft */
+  /* Sieben echte Suchabfragen vom 12. August 2026 */
   prompts: [
-    { q:'RocFortis Group Sicherheit Verteidigung Österreich', e:'Marke',        cited:true,  rank:1,    rival:'—' },
-    { q:'OSINT Frühwarnsystem geopolitische Risiken',         e:'Fachthema',    cited:true,  rank:1,    rival:'—' },
-    { q:'Maritime Sicherheit kritische Unterwasserinfrastruktur', e:'Fachthema',cited:true,  rank:7,    rival:'—' },
-    { q:'Dual-Use Ausfuhrgenehmigung Beratung',               e:'Kaufabsicht',  cited:false, rank:null, rival:'Rödl & Partner' },
-    { q:'Drohnen UAV Aufklärung KI Österreich',               e:'Kaufabsicht',  cited:false, rank:null, rival:'ProSafe' },
-    { q:'Industriespionage Schutz Beratung Risikoanalyse',    e:'Kaufabsicht',  cited:false, rank:null, rival:'SIUS Consulting' }
+    { q:'RocFortis Group Sicherheit Verteidigung Österreich', e:'Marke',       cited:true,  rank:1,    rival:'—' },
+    { q:'OSINT Frühwarnsystem geopolitische Risiken',         e:'Fachthema',   cited:true,  rank:1,    rival:'—' },
+    { q:'Maritime Sicherheit kritische Unterwasserinfrastruktur', e:'Fachthema',cited:true, rank:7,    rival:'—' },
+    { q:'Sicherheitsberatung Risikomanagement Unternehmen Wien', e:'Kaufabsicht',cited:false,rank:null, rival:'Risk Guard, SecTec' },
+    { q:'Dual-Use Ausfuhrgenehmigung Beratung',               e:'Kaufabsicht', cited:false, rank:null, rival:'Rödl & Partner' },
+    { q:'Drohnen UAV Aufklärung KI Österreich',               e:'Kaufabsicht', cited:false, rank:null, rival:'ProSafe' },
+    { q:'Industriespionage Schutz Beratung Risikoanalyse',    e:'Kaufabsicht', cited:false, rank:null, rival:'SIUS Consulting' }
   ],
 
-  /* Im Browser gemessen; Feldwerte brauchen Search-Console-Zugang */
+  /* Im Browser gemessen. LCP, INP und CLS sind Feldwerte und brauchen
+     Search-Console-Zugang — deshalb steht hier, was messbar war. */
   vitals: [
     { label:'Serverantwort', val:'1,6 s',  note:'Schwelle 0,8 s',        ok:false },
     { label:'Seite geladen', val:'4,1 s',  note:'61 Ressourcen',         ok:false },
@@ -880,6 +877,7 @@ function setVariant(v, remember = true) {
     b.setAttribute('aria-pressed', String(b.dataset.v === v))
   );
   if (remember) { try { localStorage.setItem(VKEY, v); } catch (e) {} }
+  if ($('#app').classList.contains('app--on')) drawLine();
 }
 
 $('#seg').addEventListener('click', (ev) => {
@@ -933,70 +931,99 @@ function renderKPIs() {
     <div class="kpi${k.alarm ? ' kpi--alarm' : ''}" lang="de">
       <div class="k-label"><span class="tag tag--${k.ch.toLowerCase()}">${k.ch}</span>${esc(k.label)}</div>
       <div class="k-val">${esc(k.val)}${k.unit ? `<small>${esc(k.unit)}</small>` : ''}</div>
-      <div class="spark">${miniBars(k.spark, k.alarm)}</div>
+      <div class="spark">${k.spark ? sparkSVG(k.spark) : ''}</div>
       <div class="k-foot">
         <span class="k-base">${esc(k.base)}</span>
       </div>
     </div>`).join('');
 }
 
-/* Ohne Zeitreihe wäre eine Sparkline eine Lüge — diese Balken zeigen
-   die Bestandteile der Kennzahl, nicht einen erfundenen Verlauf. */
-function miniBars(vals, alarm) {
-  const max = Math.max(...vals) || 1;
-  const w = 120, h = 22, gap = 2.5;
-  const bw = (w - gap * (vals.length - 1)) / vals.length;
-  const bars = vals.map((v, i) => {
-    const bh = Math.max(1.5, (v / max) * h);
-    const fill = alarm && i === 0 ? 'var(--neg)' : (i === 0 ? 'var(--accent)' : 'var(--line-strong)');
-    return `<rect x="${(i * (bw + gap)).toFixed(1)}" y="${(h - bh).toFixed(1)}" width="${bw.toFixed(1)}"
-                  height="${bh.toFixed(1)}" fill="${fill}" rx="1"/>`;
+function drawLine() {
+  const { months, seo, geo } = DATA.timeline;
+  const W = 760, H = 280, L = 44, R = 46, T = 16, B = 34;
+  const iw = W - L - R, ih = H - T - B;
+
+  const sMax = 100;
+  const gMax = 60;
+  const x = i => L + i * iw / (months.length - 1);
+  const yS = v => T + ih - (v / sMax) * ih;
+  const yG = v => T + ih - (v / gMax) * ih;
+
+  const path = (arr, y) => arr.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' ');
+  const area = `${path(geo, yG)} L${x(months.length - 1).toFixed(1)} ${T + ih} L${L} ${T + ih} Z`;
+
+  const grid = [0, .25, .5, .75, 1].map(t => {
+    const yy = T + ih - t * ih;
+    return `<line x1="${L}" y1="${yy}" x2="${W - R}" y2="${yy}" stroke="var(--line)" stroke-width="1"/>
+      <text x="${L - 9}" y="${yy + 3.5}" text-anchor="end" class="ax ax-s">${Math.round(sMax * t)}</text>
+      <text x="${W - R + 9}" y="${yy + 3.5}" text-anchor="start" class="ax ax-g">${Math.round(gMax * t)}%</text>`;
   }).join('');
-  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">${bars}</svg>`;
+
+  const labels = months.map((m, i) =>
+    `<text x="${x(i).toFixed(1)}" y="${H - 12}" text-anchor="middle" class="ax">${m}</text>`).join('');
+
+  const lastI = months.length - 1;
+
+  $('#lineChart').innerHTML = `
+    <svg viewBox="0 0 ${W} ${H}" role="img"
+         aria-label="Seitenbestand über zwölf Monate: von 87 auf 98 Seiten, letzte Änderung im April 2026. Anteil englischer Seiten konstant bei 48 Prozent.">
+      <defs>
+        <linearGradient id="gfill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="var(--geo)" stop-opacity=".22"/>
+          <stop offset="100%" stop-color="var(--geo)" stop-opacity="0"/>
+        </linearGradient>
+        <style>
+          .ax { font-family: var(--font-mono); font-size: 9.5px; fill: var(--ink-3); letter-spacing: .06em; }
+          .ax-s { fill: var(--seo); }
+          .ax-g { fill: var(--geo); }
+        </style>
+      </defs>
+
+      ${grid}
+      <path d="${area}" fill="url(#gfill)"/>
+      <path d="${path(seo, yS)}" fill="none" stroke="var(--seo)" stroke-width="1.75"
+            stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+      <path d="${path(geo, yG)}" fill="none" stroke="var(--geo)" stroke-width="2.25"
+            stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+
+      <circle cx="${x(lastI).toFixed(1)}" cy="${yS(seo[lastI]).toFixed(1)}" r="3.2"
+              fill="var(--surface)" stroke="var(--seo)" stroke-width="1.75"/>
+      <circle cx="${x(lastI).toFixed(1)}" cy="${yG(geo[lastI]).toFixed(1)}" r="4" fill="var(--geo)"/>
+
+      ${labels}
+    </svg>`;
 }
 
-function bar(name, val, note, weight, colorVar) {
-  return `<div class="bar-row">
-      <span class="b-name">${esc(name)}${weight ? ` <span class="b-weight">${weight} %</span>` : ''}</span>
-      <span class="b-val">${val}<span class="b-max">/100</span></span>
-      <div class="bar-track"><div class="bar-fill" style="width:${val}%;background:${colorVar}"></div></div>
-      <span class="b-note">${esc(note)}</span>
-    </div>`;
+function renderEngines() {
+  const max = 100;
+  $('#engines').innerHTML = DATA.engines.map(e => `
+    <div class="bar-row">
+      <span class="b-name">${esc(e.name)}</span>
+      <span class="b-val">${e.val}<span style="color:var(--ink-3)">/100</span></span>
+      <div class="bar-track"><div class="bar-fill" style="width:${(e.val / max * 100).toFixed(1)}%"></div></div>
+      <span class="b-note">achtet vor allem auf: ${esc(e.eng)}</span>
+    </div>`).join('');
 }
 
-/* unter 50 rot, unter 70 gelb, darueber gruen — Note steht zusaetzlich als Zahl */
-function scoreColor(v) {
-  return v < 50 ? 'var(--neg)' : v < 70 ? 'var(--warn)' : 'var(--pos)';
-}
-
-function renderCategories() {
-  $('#categories').innerHTML = DATA.categories
-    .map(c => bar(c.name, c.score, c.note, c.weight, scoreColor(c.score))).join('');
-}
-
-function renderGeoDims() {
-  $('#geodims').innerHTML = DATA.geodims
-    .map(g => bar(g.name, g.val, g.note, g.weight, scoreColor(g.val))).join('');
-}
-
-function renderFindings() {
-  const rank = { 'kritisch': 'pill--no', 'hoch': 'pill--warn', 'mittel': 'pill--mute' };
-  $('#findTable tbody').innerHTML = DATA.findings.map(f => `
+function renderKeywords() {
+  const strich = '<span style="color:var(--ink-3)">—</span>';
+  $('#kwTable tbody').innerHTML = DATA.keywords.map(k => `
     <tr>
-      <td class="kw">${esc(f.titel)}</td>
-      <td>${esc(f.wo)}</td>
-      <td><span class="pill ${rank[f.schwere] || 'pill--mute'}">${esc(f.schwere)}</span></td>
-      <td style="color:var(--ink-2)">${esc(f.wirkung)}</td>
+      <td class="kw">${esc(k.kw)}</td>
+      <td class="num">${k.pos ?? strich}</td>
+      <td class="num">${strich}</td>
+      <td class="num">${strich}</td>
+      <td>${esc(k.intent)}</td>
+      <td><span class="pill ${k.cited ? 'pill--yes' : 'pill--no'}">${k.cited ? 'Gefunden' : 'Nicht gefunden'}</span></td>
     </tr>`).join('');
 }
 
-function renderBestand() {
-  const total = DATA.bestand.reduce((a, b) => a + b.val, 0);
-  const max = Math.max(...DATA.bestand.map(r => r.val));
-  $('#bestand').innerHTML = DATA.bestand.map(r => `
+function renderRegions() {
+  const max = Math.max(...DATA.regions.map(r => r.val));
+  $('#regions').innerHTML = DATA.regions.map(r => `
     <div class="region">
       <span class="r-name">${esc(r.name)}</span>
-      <span class="r-val">${r.val} · ${Math.round(r.val / total * 100)} %</span>
+      <span class="r-val">${r.val} Seiten</span>
       <div class="r-track"><div class="r-fill" style="width:${(r.val / max * 100).toFixed(1)}%"></div></div>
     </div>`).join('');
 }
@@ -1005,8 +1032,8 @@ function renderPrompts() {
   $('#promptTable tbody').innerHTML = DATA.prompts.map(p => `
     <tr>
       <td>${esc(p.q)}</td>
-      <td style="color:var(--ink-2)">${esc(p.e)}</td>
-      <td><span class="pill ${p.cited ? 'pill--yes' : 'pill--no'}">${p.cited ? 'gefunden' : 'nicht gefunden'}</span></td>
+      <td class="num" style="text-align:left">${esc(p.e)}</td>
+      <td><span class="pill ${p.cited ? 'pill--yes' : 'pill--no'}">${p.cited ? 'Gefunden' : 'Nicht gefunden'}</span></td>
       <td class="num">${p.rank ?? '—'}</td>
       <td>${p.rival === '—'
             ? '<span style="color:var(--ink-3)">—</span>'
@@ -1018,7 +1045,7 @@ function renderVitals() {
   $('#vitals').innerHTML = DATA.vitals.map(v => `
     <div class="vital">
       <span class="v-label">${esc(v.label)}</span>
-      <span class="v-val" style="color:${v.ok ? 'var(--pos)' : 'var(--neg)'}">${esc(v.val)}</span>
+      <span class="v-val" style="color:${v.ok ? 'var(--ink)' : 'var(--neg)'}">${esc(v.val)}</span>
       <span class="v-note">${esc(v.note)}</span>
     </div>`).join('');
 }
@@ -1034,11 +1061,12 @@ function tick() {
 let rendered = false;
 function render() {
   if (!rendered) {
-    renderKPIs(); renderCategories(); renderGeoDims();
-    renderFindings(); renderBestand(); renderPrompts(); renderVitals();
+    renderKPIs(); renderEngines(); renderKeywords();
+    renderRegions(); renderPrompts(); renderVitals();
     tick(); setInterval(tick, 1000);
     rendered = true;
   }
+  drawLine();
 }
 
 /* Bestehende Sitzung fortsetzen */

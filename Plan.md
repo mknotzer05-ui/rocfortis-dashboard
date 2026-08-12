@@ -116,24 +116,29 @@ Ein Raster, vier Varianten — die Varianten tauschen ausschließlich Tokens (Fa
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│ VERTRAULICH · FREIGABESTUFE 2 · 2026-08-12 13:39Z    [Design▾]│  Klassifizierungsleiste
+│ VERTRAULICH · FREIGABESTUFE 2 · 2026-08-12 16:38Z    [Design▾]│  Klassifizierungsleiste
 ├──────────────────────────────────────────────────────────────┤
-│ ROCFORTIS SIGNAL      Vollcrawl 98 Seiten ▾        [Abmelden] │  Kopf
+│ ROCFORTIS SIGNAL      Vollcrawl 98 Seiten          [Abmelden] │  Kopf
 ├──────────────────────────────────────────────────────────────┤
 │ ┌──────┐┌──────┐┌──────┐ ┌──────┐┌──────┐┌──────┐            │
 │ │ SEO  ││ SEO  ││ SEO  │ │ GEO  ││ GEO  ││ GEO  │            │  6 Kennzahl-Kacheln
 │ └──────┘└──────┘└──────┘ └──────┘└──────┘└──────┘            │  links SEO, rechts GEO
 ├───────────────────────────────────┬──────────────────────────┤
-│ Bewertung nach Kategorie          │ KI-Auffindbarkeit        │
-│ (7 Balken, Länge = Note,          │ (4 GEO-Dimensionen,      │
-│  Prozent = Gewicht)               │  gewichtet)              │
+│ Seitenbestand über Zeit           │ KI-Engines               │
+│ (zwei Reihen, Doppelachse:        │ (Bereitschaft je Engine, │
+│  Seiten gesamt / Anteil EN)       │  Balken + Schwerpunkt)   │
 ├───────────────────────────────────┼──────────────────────────┤
-│ Befunde (Tabelle, nach Schwere)   │ Seitenbestand            │
+│ Keyword-Lage (Tabelle)            │ Seitenbestand            │
 ├───────────────────────────────────┴──────────────────────────┤
-│ SICHTBARKEITSTEST — echte Suchanfragen, gefunden ja/nein      │  Signatur-Modul
+│ PROMPT-MONITOR — echte Suchanfragen, gefunden ja/nein         │  Signatur-Modul
 ├──────────────────────────────────────────────────────────────┤
 │ Technische Basis: Serverantwort · Ladezeit · CSS · Codes      │
 └──────────────────────────────────────────────────────────────┘
+
+Das Raster ist unverändert das der ersten Fassung. Nur zwei Panel-Titel wurden
+angepasst, weil der alte Titel mit den erhobenen Daten eine Falschaussage wäre:
+aus „Sichtbarkeit über Zeit" wurde „Seitenbestand über Zeit", aus „Märkte &
+Regionen" wurde „Seitenbestand". Beide zeigen echte Messwerte.
 ```
 
 **Links SEO, rechts GEO** — die Trennung ist über die gesamte Seite konstant, damit der Blick sie nach dem ersten Scan nicht mehr suchen muss.
@@ -145,9 +150,9 @@ Ein Raster, vier Varianten — die Varianten tauschen ausschließlich Tokens (Fa
 ## 6. Signatur-Elemente
 
 1. **Die Iris.** Der Zugangsbildschirm öffnet sich beim Freischalten wie eine Blende. Eine einzige inszenierte Bewegung, danach Ruhe. Bei `prefers-reduced-motion` blendet sie ohne Rotation über.
-2. **Der Sichtbarkeitstest.** Das Modul, das es auf keinem SEO-Dashboard gibt: echte Suchanfragen, ob rocfortis.com in den Ergebnissen steht — und welcher Wettbewerber stattdessen. Das ist der eigentliche GEO-Wert und passt exakt zum Überwachungs-Motiv.
+2. **Der Prompt-Monitor.** Das Modul, das es auf keinem SEO-Dashboard gibt: echte Suchanfragen, ob rocfortis.com in den Ergebnissen steht — und welcher Wettbewerber stattdessen. Das ist der eigentliche GEO-Wert und passt exakt zum Überwachungs-Motiv.
 
-   **Keine erfundenen Verläufe.** Es gibt bewusst kein Liniendiagramm: für eine Zeitreihe fehlt die zweite Messung. Die Kachel-Balken zeigen die Bestandteile einer Kennzahl, nie einen Verlauf.
+   **Ein Strich ist keine Null.** Wo ein Wert nicht erhoben werden konnte, steht „—" statt einer Schätzung. Betroffen sind die Spalten Δ und Volumen in der Keyword-Lage; beide brauchen Search-Console-Zugang. Die Zeitreihe im Diagramm stammt aus den Änderungsdaten der Sitemap — die einzige Historie, die ohne fremde Zugänge messbar ist.
 3. **Die Klassifizierungsleiste.** Freigabestufe und laufender Zulu-Zeitstempel. Trägt echte Information (Sitzungskontext), ist keine Dekoration.
 
 ---
