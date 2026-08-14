@@ -5,11 +5,11 @@
 Die Gruppe gliedert sich in spezialisierte Einheiten: Foreus Intelligence (private Aufklärung, OSINT, Spionageabwehr), SecFortis (physische Sicherheit und Objektschutz in Hochrisikogebieten), C24 Advisory (Sicherheitsberatung, Rüstungsbeschaffung, Verteidigungsstrategie) und QFortis (KI-gestützte Sicherheitssoftware und autonome Überwachungstechnik). Die operative Arbeit ist in fünf Domänen gegliedert: SEA, AIR, LAND, SUPPLY und INTEL. Die Website ist auf Deutsch und Englisch verfügbar; englische Fassungen liegen unter dem Pfad /en/.
 
 ## Leistungsdomänen
-- [SEA — Maritime Sicherheit](https://rocfortis.com/capability/sea-maritime-sicherheit-schutz-kritischer-seeinfrastruktur/): Schutz von Seewegen, Offshore-Anlagen und Unterwasserinfrastruktur
-- [AIR — Luftgestützte Aufklärung](https://rocfortis.com/capability/air-aufklaerung-ueberwachung-luftgestuetzte-lagekontrolle/): UAV-Aufklärung und Überwachung mit KI-gestützter Bildauswertung
-- [LAND — Grenzschutz und Robotik](https://rocfortis.com/capability/land-grenzschutz-robotik-urbane-ueberwachung-territoriale-stabilisierung/): Grenzsicherung, Robotik und urbane Überwachungssysteme
-- [SUPPLY — Verteidigungstechnologie](https://rocfortis.com/capability/supply-projektentwicklung-verteidigungstechnologie-systemvertrieb/): Projektentwicklung, taktische Führungszentren, Kommunikationsinfrastruktur
-- [INTEL — Aufklärung und Analyse](https://rocfortis.com/capability/intel-aufklaerung-analyse-intervention-gegenmacht/): Nachrichtengewinnung, Lageanalyse und Intervention
+- [SEA: Maritime Sicherheit](https://rocfortis.com/capability/sea-maritime-sicherheit-schutz-kritischer-seeinfrastruktur/): Schutz von Seewegen, Offshore-Anlagen und Unterwasserinfrastruktur
+- [AIR: Luftgestützte Aufklärung](https://rocfortis.com/capability/air-aufklaerung-ueberwachung-luftgestuetzte-lagekontrolle/): UAV-Aufklärung und Überwachung mit KI-gestützter Bildauswertung
+- [LAND: Grenzschutz und Robotik](https://rocfortis.com/capability/land-grenzschutz-robotik-urbane-ueberwachung-territoriale-stabilisierung/): Grenzsicherung, Robotik und urbane Überwachungssysteme
+- [SUPPLY: Verteidigungstechnologie](https://rocfortis.com/capability/supply-projektentwicklung-verteidigungstechnologie-systemvertrieb/): Projektentwicklung, taktische Führungszentren, Kommunikationsinfrastruktur
+- [INTEL: Aufklärung und Analyse](https://rocfortis.com/capability/intel-aufklaerung-analyse-intervention-gegenmacht/): Nachrichtengewinnung, Lageanalyse und Intervention
 
 ## Branchen
 - [Kritische Infrastruktur und Energie](https://rocfortis.com/offering/kritische-infrastruktur-energie/): Schutz von Energieversorgung und kritischen Anlagen
