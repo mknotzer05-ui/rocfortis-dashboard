@@ -20,15 +20,23 @@ Sechs Kennzahlen, der Seitenbestand über zwölf Monate, die Bereitschaft je
 KI-Engine, die Keyword-Lage, der Seitenbestand nach Seitentyp, der Prompt-Monitor
 und die technische Basis.
 
-## Vier Designvarianten
+## Zwei Ansichten
 
-Oben rechts umschaltbar, die Auswahl bleibt gespeichert. Alle vier tauschen nur
-Farb- und Formtokens, nie die Struktur.
+Im Kopf umschaltbar, die Auswahl bleibt gespeichert. Beide tauschen nur Farb-
+und Formtokens, nie die Struktur.
 
-- Dossier: dunkel, Mitternachtsblau mit Messing
-- Cupertino: hell, Apple-Karten auf kühlem Grau
-- Gunmetal: dunkel monochrom, kantig, Monospace-Titel
-- Vellum: helles Papier, Tintenblau und Stempelrot, für Ausdruck und PDF
+- **Bildschirm:** die Hausidentität von rocfortis.com. Kohle `#1C1C1C` gegen
+  Off-White `#E6E6E6`, Feldkhaki als einziger Akzent, Radius 0, Versal-Titel
+  in Work Sans. Dieselben Farbwerte wie die Unternehmensseite.
+- **Papier:** heller Untergrund mit Tintenblau, für Ausdruck und PDF.
+
+Drei frühere Entwürfe (Dossier, Cupertino, Gunmetal) liegen weiter als Tokens
+im Stylesheet, werden aber nicht mehr angeboten. Wer sie sehen will, setzt
+`data-variant` am `<html>`-Element von Hand.
+
+Beim Drucken wird die Papier-Palette unabhängig von der gewählten Ansicht
+erzwungen. Bedienelemente entfallen, Kacheln und Tabellen brechen nicht mitten
+durch, der Maßnahmenplan beginnt auf einer eigenen Seite.
 
 ## Schrift
 
@@ -54,6 +62,10 @@ Die Werte liegen gesammelt im Objekt `DATA` am Anfang des `<script>`-Blocks in
 Noch nicht erhoben, weil dafür Zugänge fehlen: Besucherzahlen und Klicks (Search
 Console, GA4), Keyword-Positionen (Sistrix oder Ahrefs), Feldwerte für
 Core Web Vitals und echte Zitationen in ChatGPT oder Perplexity.
+
+Welche Zugänge und Angaben für den Start der Optimierung nötig sind, steht
+gesammelt in [ANFORDERUNGEN.md](ANFORDERUNGEN.md). Wie die Seite abgesichert
+wird, sobald echte Zahlen darin stehen, steht in [ABSICHERUNG.md](ABSICHERUNG.md).
 
 Als Beigabe liegt ein fertiger Entwurf für [llms.txt](llms.txt) bei. Alle 43
 verlinkten Seiten wurden auf Erreichbarkeit geprüft.

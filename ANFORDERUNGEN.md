@@ -164,7 +164,37 @@ um, oder wir teilen auf (Technik bei uns, Inhalte bei RocFortis).
 Soll das Lagebild bei RocFortis liegen und regelmäßig aktualisiert werden? Dann
 brauchen wir eine Entscheidung über Hosting und Zugangsschutz. Die derzeitige
 Passwortabfrage ist eine Sperre für Gelegenheitszugriffe, keine echte
-Zugriffskontrolle.
+Zugriffskontrolle. Der Weg zur echten Absicherung steht in
+[ABSICHERUNG.md](ABSICHERUNG.md).
+
+---
+
+## Übergabe der Zugänge
+
+Bitte nicht per E-Mail zusammen mit den Benutzernamen. Sinnvoll ist:
+
+- Search Console und GA4 über die eingebaute Benutzerverwaltung freigeben, dann
+  wandert kein Passwort durch die Leitung
+- WordPress-Zugang über einen Passwortmanager oder einen Dienst mit
+  ablaufendem Link
+- Zwei-Faktor-Authentifizierung überall dort aktivieren, wo sie angeboten wird
+
+---
+
+## Was ohne jeden Zugang schon möglich ist
+
+Falls die Freigaben dauern: Ein Großteil des Maßnahmenplans lässt sich als
+fertige Textlieferung vorbereiten, die jemand bei RocFortis einträgt.
+
+| Lieferbar ohne Zugang | Form |
+|---|---|
+| 81 gekürzte Seitentitel | Tabelle, alt gegen neu |
+| 16 fehlende H1-Überschriften | Tabelle je URL |
+| Alt-Texte für die meistgenutzten Bilder | Tabelle, Dateiname und Text |
+| hreflang-Zuordnung DE zu EN für alle 98 Seiten | Tabelle, technische Vorlage |
+
+Nicht ohne Zugang machbar sind die Schema-Korrekturen, die Ladezeit und jede
+Form von Erfolgsmessung.
 
 ---
 

@@ -1,6 +1,17 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RocFortis Signal · SEO- und GEO-Lagebild</title>
+<meta name="description" content="Internes SEO- und GEO-Lagebild der RocFortis Group. Erhebung vom 12. August 2026.">
+<!-- Interne Seite. Nicht indexieren, nicht archivieren, keine Vorschau. -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#1C1C1C">
+<!-- Zielkreuz in Feldkhaki auf Kohle, dasselbe Motiv wie der Zugangsbildschirm -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231C1C1C'/%3E%3Cg fill='none' stroke='%23B3A88C' stroke-width='1.6'%3E%3Ccircle cx='16' cy='16' r='8'/%3E%3Cpath d='M16 3v6M16 23v6M3 16h6M23 16h6'/%3E%3C/g%3E%3Ccircle cx='16' cy='16' r='2.6' fill='%23B3A88C'/%3E%3C/svg%3E">
 
 <style>
 /* Work Sans, die Hausschrift von rocfortis.com. Liegt als Variable Font in
@@ -143,7 +154,7 @@
   --line-strong: #4A4A4A;
   --ink: #E6E6E6;
   --ink-2: #9C978B;
-  --ink-3: #8B877D;
+  --ink-3: #969287;
   --accent: #B3A88C;
   --accent-soft: rgba(179,168,140,.13);
   --on-accent: #1C1C1C;
@@ -289,20 +300,6 @@ body {
 .app { display: none; }
 .app.app--on { display: block; animation: fadein 600ms 200ms ease both; }
 @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
-
-.clsbar {
-  position: sticky; top: 0; z-index: 20;
-  display: flex; align-items: center; gap: var(--s4);
-  flex-wrap: wrap;
-  padding: 7px var(--s5);
-  background: var(--ground-2);
-  border-bottom: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--ink-2);
-}
-.clsbar .cls-mark { color: var(--accent); }
-.clsbar .spacer { flex: 1 1 auto; }
 
 .seg {
   display: flex; gap: 2px;
@@ -478,6 +475,52 @@ main { padding: var(--s5); display: flex; flex-direction: column; gap: var(--s4)
 .score-w span { white-space: nowrap; }
 .score-w span b { color: var(--ink-2); font-weight: 500; }
 
+/* --- Massnahmenplan --- */
+.plan { display: grid; gap: var(--s5); grid-template-columns: repeat(3, minmax(0,1fr)); }
+.plan-phase { min-width: 0; }
+.plan-when {
+  font-family: var(--font-mono);
+  font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent);
+}
+.plan-title {
+  font-family: var(--font-display);
+  font-size: 13px; font-weight: 600; letter-spacing: .04em;
+  margin: 2px 0 var(--s3);
+  text-wrap: balance;
+}
+.plan-phase--lead .plan-title::after {
+  content: 'der eigentliche Hebel';
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  font-weight: 400;
+  color: var(--ink-3);
+  margin-top: 3px;
+}
+.plan-item {
+  border-top: 1px solid var(--line);
+  padding: var(--s3) 0;
+}
+/* Deutsche Komposita sind lang, in schmalen Spalten muss getrennt werden */
+.plan-task { font-size: 12.5px; line-height: 1.45; overflow-wrap: anywhere; hyphens: auto; }
+.plan-title { overflow-wrap: anywhere; hyphens: auto; }
+.plan-meta {
+  display: flex; flex-wrap: wrap; gap: 3px var(--s3);
+  margin-top: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .05em;
+}
+.plan-effort { color: var(--ink-2); white-space: nowrap; }
+.plan-impact { color: var(--ink-3); }
+.plan-note {
+  margin: var(--s3) 0 0;
+  font-size: 11px; line-height: 1.5;
+  color: var(--ink-3);
+  border-top: 1px solid var(--line);
+  padding-top: var(--s3);
+}
+
 .kpis {
   display: grid; gap: var(--s3);
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -613,14 +656,6 @@ th.num { text-align: right; }
 .vital .v-note { font-size: 10.5px; color: var(--ink-3); }
 
 /* --- Fusszeile --- */
-.foot {
-  padding: var(--s5);
-  border-top: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--ink-3);
-  display: flex; gap: var(--s4); flex-wrap: wrap;
-}
 
 /* ============================================================
    RESPONSIV
@@ -629,23 +664,24 @@ th.num { text-align: right; }
   .kpis { grid-template-columns: repeat(3, minmax(0,1fr)); }
   .row--73, .row--55 { grid-template-columns: minmax(0,1fr); }
   .vitals { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .plan { grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--s4); }
+  /* Der Umschalter sitzt seit dem Wegfall der Leiste im Kopf und braucht Platz */
+  .topbar { gap: var(--s3); }
 }
 @media (max-width: 640px) {
   main { padding: var(--s4); gap: var(--s3); }
-  .topbar, .clsbar { padding-left: var(--s4); padding-right: var(--s4); }
+  .topbar { padding-left: var(--s4); padding-right: var(--s4); }
   .kpis { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .scores { grid-template-columns: minmax(0,1fr); }
   .score { padding: var(--s3) var(--s4) var(--s4); }
   .score-val b { font-size: 36px; }
   .vitals { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .plan { grid-template-columns: minmax(0,1fr); gap: var(--s4); }
   .panel { padding: var(--s3) var(--s4) var(--s4); }
   .tablewrap { margin: 0 calc(var(--s4) * -1) calc(var(--s4) * -1); padding: 0 var(--s4) var(--s2); }
   .gate-title { font-size: 27px; }
 
   /* Kopfbereich verdichten, auf 375px zählt jede Zeile */
-  .clsbar { gap: var(--s2) var(--s3); padding: 6px var(--s4); font-size: 9px; }
-  .clsbar .cls-label { display: none; }
-  .clsbar .spacer { flex-basis: 100%; height: 0; }
   .seg button { padding: 4px 7px; font-size: 9px; }
 
   .topbar { gap: var(--s2) var(--s3); padding: var(--s4) var(--s4) var(--s3); align-items: center; }
@@ -677,7 +713,68 @@ th.num { text-align: right; }
     transition-duration: .001ms !important;
   }
 }
+
+/* ============================================================
+   DRUCK
+   Papier-Tokens werden erzwungen, egal welche Ansicht am Bildschirm
+   aktiv ist. Bedienelemente entfallen, Panels bleiben zusammen.
+   ============================================================ */
+@media print {
+  :root, :root[data-variant] {
+    --ground: #FFFFFF;
+    --ground-2: #FFFFFF;
+    --surface: #FFFFFF;
+    --surface-2: #F1F3EE;
+    --line: #C3C8BF;
+    --line-strong: #97A093;
+    --ink: #101418;
+    --ink-2: #45504F;
+    --ink-3: #4B564C;
+    --accent: #1F4E6B;
+    --accent-soft: rgba(31,78,107,.10);
+    --on-accent: #FFFFFF;
+    --pos: #245C42;
+    --neg: #8A3227;
+    --warn: #71510F;
+    --seo: #1F4E6B;
+    --geo: #8A3227;
+    --radius: 2px;
+    --radius-sm: 1px;
+    --grain: 0;
+    --shadow: none;
+  }
+  @page { margin: 14mm 12mm; }
+
+  .grain, .gate, #logout, .seg { display: none !important; }
+  body { background: #FFFFFF; font-size: 10.5pt; }
+  .app { opacity: 1 !important; transform: none !important; }
+  .topbar { border-bottom: 1.5px solid var(--line-strong); padding-left: 0; padding-right: 0; }
+  main { padding: 0; gap: 10px; }
+
+  /* Nichts soll mitten in einer Kachel oder Tabelle umbrechen */
+  .panel, .score, .kpi, .plan-phase, .vital, table { break-inside: avoid; page-break-inside: avoid; }
+  .panel { border: 1px solid var(--line); }
+  .row--73, .row--55 { grid-template-columns: minmax(0,1fr); }
+  .plan { break-before: page; page-break-before: always; }
+
+  /* Verweise laufen ins Leere, sobald das Blatt gedruckt ist */
+  a[href^="http"]::after { content: ' (' attr(href) ')'; font-size: 8pt; color: var(--ink-3); }
+
+  /* Quellenangabe steht nur auf dem Papier, am Bildschirm traegt sie der Kopf */
+  main::after {
+    content: 'RocFortis Signal · Erhebung 12. August 2026 · vertraulich, nur für den internen Gebrauch';
+    display: block;
+    margin-top: 10px;
+    padding-top: 6px;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 8pt; letter-spacing: .06em;
+    color: var(--ink-3);
+  }
+}
 </style>
+</head>
+<body>
 
 <div class="grain" aria-hidden="true"></div>
 
@@ -723,26 +820,15 @@ th.num { text-align: right; }
 <!-- ========================== ANWENDUNG ========================== -->
 <div class="app" id="app">
 
-  <div class="clsbar">
-    <span class="cls-mark">◆ Vertraulich</span>
-    <span>Freigabestufe 2</span>
-    <span id="clock"></span>
-    <span class="spacer"></span>
-    <span class="cls-label">Design</span>
-    <div class="seg" id="seg" role="group" aria-label="Designvariante wählen">
-      <button type="button" data-v="dossier"   aria-pressed="true">Dossier</button>
-      <button type="button" data-v="cupertino" aria-pressed="false">Cupertino</button>
-      <button type="button" data-v="gunmetal"  aria-pressed="false">Gunmetal</button>
-      <button type="button" data-v="vellum"    aria-pressed="false">Vellum</button>
-      <button type="button" data-v="rocfortis" aria-pressed="false">RocFortis</button>
-    </div>
-  </div>
-
   <header class="topbar">
     <h1 class="wordmark">RocFortis <em>Signal</em></h1>
     <span class="sub">rocfortis.com · Vollcrawl aller 98 Seiten</span>
     <span class="spacer"></span>
     <span class="chip">Erhebung 12. August 2026</span>
+    <div class="seg" id="seg" role="group" aria-label="Ansicht wählen">
+      <button type="button" data-v="rocfortis" aria-pressed="true">Bildschirm</button>
+      <button type="button" data-v="vellum"    aria-pressed="false">Papier</button>
+    </div>
     <button class="linkbtn" type="button" id="logout">Abmelden</button>
   </header>
 
@@ -836,13 +922,15 @@ th.num { text-align: right; }
       </div>
       <div class="vitals" id="vitals"></div>
     </article>
-  </main>
 
-  <footer class="foot">
-    <span>RocFortis Group · Internes Lagebild</span>
-    <span>Erhebung: Vollcrawl rocfortis.com, 12. August 2026</span>
-    <span id="footStamp"></span>
-  </footer>
+    <article class="panel">
+      <div class="panel-head">
+        <h2>Was jetzt zu tun ist</h2>
+        <span class="note">Aufwände sind geschätzte Umsetzungsdauer, keine Messwerte</span>
+      </div>
+      <div class="plan" id="plan"></div>
+    </article>
+  </main>
 </div>
 
 <script>
@@ -925,7 +1013,7 @@ const DATA = {
      braeuchte GA4, siehe Fussnote im Panel. */
   /* Marktabdeckung: wie viele der 98 Seiten bedienen den Markt in seiner
      Sprache. Ohne hreflang unterscheidet Google die deutschsprachigen
-     Maerkte nicht — deshalb stehen AT, DE und CH auf demselben Wert.
+     Maerkte nicht, deshalb stehen AT, DE und CH auf demselben Wert.
      Besucherverteilung braeuchte GA4. */
   regions: [
     { name:'Österreich · Sitz Wien',   val:51, note:'deutsch' },
@@ -945,6 +1033,30 @@ const DATA = {
     { q:'Dual-Use Ausfuhrgenehmigung Beratung',               e:'Kaufabsicht', cited:false, rank:null, rival:'Rödl & Partner' },
     { q:'Drohnen UAV Aufklärung KI Österreich',               e:'Kaufabsicht', cited:false, rank:null, rival:'ProSafe' },
     { q:'Industriespionage Schutz Beratung Risikoanalyse',    e:'Kaufabsicht', cited:false, rank:null, rival:'SIUS Consulting' }
+  ],
+
+  /* Massnahmenplan, uebernommen aus AUDIT.md Abschnitt 6. Aufwaende sind
+     Schaetzungen der Umsetzungsdauer, keine Messwerte. Wo im Audit keine
+     Wirkung angegeben ist, steht hier auch keine. */
+  plan: [
+    { phase:'Woche 1', title:'Fundament', items:[
+      { task:'hreflang auf allen Seiten',                effort:'0,5 bis 1 Tag', impact:'beendet die Sprachkonkurrenz' },
+      { task:'H1 auf den zehn Capability-Seiten',        effort:'2 Std.',        impact:'benennt das Kerngeschäft' },
+      { task:'Logo und sameAs im Organization-Schema',   effort:'2 Std.',        impact:'verankert die Marke als Entität' },
+      { task:'Serverseitiges Caching aktivieren',        effort:'0,5 Tag',       impact:'Antwortzeit unter 300 ms' },
+      { task:'llms.txt hochladen',                       effort:'15 Min.',       impact:'Einstiegskarte für KI-Systeme' }
+    ]},
+    { phase:'Woche 2 bis 3', title:'Substanz', items:[
+      { task:'Titel der 40 wichtigsten Seiten kürzen, drei Dubletten auflösen', effort:'1 Tag' },
+      { task:'Alt-Texte für den Bildbestand',                                   effort:'1 bis 2 Tage' },
+      { task:'Zehn fehlende Meta-Beschreibungen ergänzen',                      effort:'2 Std.' },
+      { task:'Ungenutztes CSS entfernen, JavaScript bündeln',                   effort:'1 bis 2 Tage' }
+    ]},
+    { phase:'Monat 2', title:'Sichtbarkeit dort, wo gekauft wird', lead:true, items:[
+      { task:'Leistungsseite Dual-Use-Beratung und Exportgenehmigungen' },
+      { task:'Leistungsseite UAV-gestützte Aufklärung und Überwachung' },
+      { task:'Leistungsseite Schutz vor Industrie- und Wirtschaftsspionage' }
+    ], note:'Je Seite ein Service-Schema und ein FAQ-Block aus echten Kundenfragen. Bestehende Fachartikel dorthin verlinken.' }
   ],
 
   /* Im Browser gemessen. LCP, INP und CLS sind Feldwerte und brauchen
@@ -1021,9 +1133,13 @@ $('#logout').addEventListener('click', () => {
 });
 
 /* ============================================================
-   DESIGNVARIANTEN
+   ANSICHTEN
+   Angeboten werden zwei: Bildschirm und Papier. Die drei fruehen
+   Entwuerfe liegen weiter als Tokens im Stylesheet, sind aber nicht
+   mehr im Umschalter. Wer sie sehen will, setzt data-variant von Hand.
    ============================================================ */
 const VKEY = 'rf-signal-variant';
+const OFFERED = ['rocfortis', 'vellum'];
 
 function setVariant(v, remember = true) {
   document.documentElement.setAttribute('data-variant', v);
@@ -1042,7 +1158,9 @@ $('#seg').addEventListener('click', (ev) => {
 (function initVariant() {
   let v = null;
   try { v = localStorage.getItem(VKEY); } catch (e) {}
-  if (!v) v = matchMedia('(prefers-color-scheme: light)').matches ? 'cupertino' : 'dossier';
+  /* Faellt auch dann sauber zurueck, wenn noch eine der abgeloesten
+     Varianten im localStorage steht. */
+  if (!OFFERED.includes(v)) v = 'rocfortis';
   setVariant(v, false);
 })();
 
@@ -1103,6 +1221,23 @@ function renderScores() {
       }</div>
     </article>`;
   $('#scores').innerHTML = block('SEO', DATA.scores.seo) + block('GEO', DATA.scores.geo);
+}
+
+function renderPlan() {
+  $('#plan').innerHTML = DATA.plan.map(p => `
+    <section class="plan-phase${p.lead ? ' plan-phase--lead' : ''}">
+      <div class="plan-when">${esc(p.phase)}</div>
+      <h3 class="plan-title">${esc(p.title)}</h3>
+      ${p.items.map(it => `
+        <div class="plan-item">
+          <div class="plan-task">${esc(it.task)}</div>
+          ${it.effort || it.impact ? `<div class="plan-meta">
+            ${it.effort ? `<span class="plan-effort">${esc(it.effort)}</span>` : ''}
+            ${it.impact ? `<span class="plan-impact">${esc(it.impact)}</span>` : ''}
+          </div>` : ''}
+        </div>`).join('')}
+      ${p.note ? `<p class="plan-note">${esc(p.note)}</p>` : ''}
+    </section>`).join('');
 }
 
 function renderKPIs() {
@@ -1203,7 +1338,7 @@ function renderRegions() {
   $('#regions').innerHTML = DATA.regions.map(r => `
     <div class="region">
       <span class="r-name">${esc(r.name)}</span>
-      <span class="r-val">${r.val ? r.val + ' Seiten' : '—'} · ${esc(r.note)}</span>
+      <span class="r-val">${r.val ? r.val + ' Seiten' : 'k. A.'} · ${esc(r.note)}</span>
       <div class="r-track"><div class="r-fill" style="width:${(r.val / max * 100).toFixed(1)}%"></div></div>
     </div>`).join('');
 }
@@ -1230,20 +1365,11 @@ function renderVitals() {
     </div>`).join('');
 }
 
-function tick() {
-  const d = new Date();
-  const z = n => String(n).padStart(2, '0');
-  const stamp = `${d.getUTCFullYear()}-${z(d.getUTCMonth() + 1)}-${z(d.getUTCDate())} ${z(d.getUTCHours())}:${z(d.getUTCMinutes())}:${z(d.getUTCSeconds())}Z`;
-  $('#clock').textContent = stamp;
-  $('#footStamp').textContent = `Sitzung ${stamp}`;
-}
-
 let rendered = false;
 function render() {
   if (!rendered) {
-    renderScores(); renderKPIs(); renderEngines(); renderKeywords();
+    renderScores(); renderKPIs(); renderEngines(); renderKeywords(); renderPlan();
     renderRegions(); renderPrompts(); renderVitals();
-    tick(); setInterval(tick, 1000);
     rendered = true;
   }
   drawLine();
@@ -1263,3 +1389,6 @@ try {
   $('#fUser').focus();
 }
 </script>
+
+</body>
+</html>

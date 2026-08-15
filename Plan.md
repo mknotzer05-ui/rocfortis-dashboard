@@ -1,7 +1,7 @@
 # RocFortis Signal: SEO- und GEO-Dashboard
 
 **Projekt:** Internes Performance-Dashboard für die RocFortis Group
-**Stand:** 12. August 2026 · erste Erhebung eingearbeitet
+**Stand:** 15. August 2026 · Erhebung vom 12. August eingearbeitet, Ansichten auf zwei reduziert, Maßnahmenplan und Druckansicht ergänzt
 **Datei:** `index.html` (eine Datei, keine Abhängigkeiten, offline lauffähig)
 
 ---
@@ -23,12 +23,15 @@ Die Befunde der ersten Erhebung stehen in [AUDIT.md](AUDIT.md).
 
 ## 2. Gestaltungsthese
 
-Zwei Anforderungen, die sich normalerweise widersprechen:
+**Stand 15. August 2026:** Die These hat sich im Lauf der Arbeit verschoben. Ursprünglich war das Vorbild der Lagebericht eines Nachrichtendienstes, mit Klassifizierungsleiste, Freigabestufe und laufendem Zulu-Zeitstempel. Diese Elemente sind entfernt. Sie trugen keine Information, die nicht ohnehin im Kopf steht, und lasen sich als Kostüm statt als Werkzeug.
 
-- **Apple-minimalistisch:** ruhige Flächen, präzise Typo-Hierarchie, keine Dekoration.
-- **Geheimagent, aber seriös:** kein Matrix-Grün, kein Gamer-Neon.
+Maßgeblich ist jetzt die Hausidentität von rocfortis.com selbst, direkt aus der Unternehmensseite übernommen:
 
-Die Auflösung: **das Dossier**, nicht der Hacker-Terminal. Die Bildsprache kommt vom Lagebericht eines Nachrichtendienstes: Klassifizierungsleisten, Freigabestufe, Zeitstempel in Zulu-Zeit, Messing statt Neon, Mitternachtsblau statt Schwarz. Bond trägt Smoking, nicht Kapuzenpulli.
+- **monochrom und kantig:** Kohle `#1C1C1C` gegen Off-White `#E6E6E6`, Radius 0, Haarlinien statt Schatten
+- **ein einziger Akzent:** Feldkhaki, abgeleitet aus dem `#79756A` der Website
+- **Versal-Titel in Work Sans**, fett und eng gesetzt, wie auf der Unternehmensseite
+
+Das Ergebnis ist zurückhaltender als der erste Entwurf und passt neben die Website, statt eine eigene Bildwelt daneben zu stellen.
 
 **Der ganze Mut steckt an einer Stelle:** im Zugangsbildschirm. Eine Iris-Blende, die sich beim Freischalten öffnet. Danach wird die Oberfläche still und arbeitet.
 
@@ -36,7 +39,30 @@ Die Auflösung: **das Dossier**, nicht der Hacker-Terminal. Die Bildsprache komm
 
 ## 3. Farbpalette
 
-### Variante A: `DOSSIER` (Standard, dunkel)
+Ausgeliefert werden zwei Ansichten: `ROCFORTIS` als Bildschirmansicht und `VELLUM` als Papieransicht. Die Varianten A bis C sind frühere Entwürfe. Sie liegen weiter als Tokens im Stylesheet, stehen aber nicht mehr im Umschalter und sind unten nur noch zur Nachvollziehbarkeit dokumentiert.
+
+### Ausgeliefert: `ROCFORTIS` (Bildschirm, dunkel)
+Die Hausidentität der Unternehmensseite. Kohle gegen Off-White, ein einziger Akzent in Feldkhaki, Radius 0, Haarlinien statt Schatten.
+
+| Token | Hex | Einsatz |
+|---|---|---|
+| `--ground` | `#1C1C1C` | Seitengrund, exakt der Wert der Website |
+| `--surface` | `#232323` | Panels |
+| `--line` | `#363636` | Haarlinien, Panelrahmen |
+| `--ink` | `#E6E6E6` | Primärtext, exakt der Wert der Website |
+| `--ink-2` | `#9C978B` | Sekundärtext |
+| `--ink-3` | `#969287` | Tertiärtext, Fußnoten |
+| `--accent` | `#B3A88C` | Feldkhaki, abgeleitet aus `#79756A` der Website |
+| `--pos` / `--neg` | `#7F9C81` / `#C77E6E` | Bewertung, nie Marke |
+
+Der Akzent ist gegenüber dem Original aufgehellt. `#79756A` erreicht auf `#1C1C1C` nur etwa 2,8:1 und wäre als Text unlesbar.
+
+### Ausgeliefert: `VELLUM` (Papier, hell)
+Siehe Variante D weiter unten. Beim Drucken wird diese Palette unabhängig von der gewählten Ansicht erzwungen.
+
+---
+
+### Variante A: `DOSSIER` (früherer Entwurf, dunkel)
 Mitternachtsblau mit Messing. Die Signatur der Marke.
 
 | Token | Hex | Einsatz |
@@ -50,7 +76,7 @@ Mitternachtsblau mit Messing. Die Signatur der Marke.
 | `--pos` | `#4FA88B` | positive Entwicklung (gedämpftes Petrolgrün) |
 | `--neg` | `#DB7C72` | Mangel, negativer Befund |
 
-### Variante B: `CUPERTINO` (hell, Apple)
+### Variante B: `CUPERTINO` (früherer Entwurf, hell)
 Kühles Weiß, Frostglas, dieselbe Messing-Marke in dunklerer Sättigung.
 
 | Token | Hex |
@@ -63,7 +89,7 @@ Kühles Weiß, Frostglas, dieselbe Messing-Marke in dunklerer Sättigung.
 | `--accent` | `#8A6714` |
 | `--pos` / `--neg` | `#2E7D63` / `#B23A31` |
 
-### Variante C: `GUNMETAL` (dunkel, monochrom)
+### Variante C: `GUNMETAL` (früherer Entwurf, dunkel monochrom)
 Neutraler Waffenstahl, Radius 0, dichter gesetzt, Titel in Monospace. Instrumententafel statt Dokument.
 
 | Token | Hex |
@@ -76,7 +102,7 @@ Neutraler Waffenstahl, Radius 0, dichter gesetzt, Titel in Monospace. Instrument
 | `--accent` | `#DDE2E5` (das Licht selbst ist der Akzent) |
 | `--pos` / `--neg` | `#7FA98C` / `#D07B70` |
 
-### Variante D: `VELLUM` (hell, freigegebenes Dokument)
+### Variante D: `VELLUM` (Papieransicht, hell)
 Kühles Papier mit Tintenblau und Stempelrot. Für Ausdruck und PDF-Export.
 
 | Token | Hex |
@@ -89,7 +115,7 @@ Kühles Papier mit Tintenblau und Stempelrot. Für Ausdruck und PDF-Export.
 | `--accent` | `#1F4E6B` |
 | `--pos` / `--neg` | `#2F6B4F` / `#9E3B2E` |
 
-**Semantik ist vom Akzent getrennt.** Grün/Gelb/Rot bedeuten immer nur Bewertung, nie Marke. Kein Wert wird ausschließlich über Farbe kodiert: jede Bewertung trägt zusätzlich ihre Zahl, jede Alarm-Kachel eine linke Kante. Alle vier Varianten wurden gemessen: schlechtester Textkontrast 4,67:1.
+**Semantik ist vom Akzent getrennt.** Grün/Gelb/Rot bedeuten immer nur Bewertung, nie Marke. Kein Wert wird ausschließlich über Farbe kodiert: jede Bewertung trägt zusätzlich ihre Zahl, jede Alarm-Kachel eine linke Kante. Gemessen wurde jedes Textelement in Kopf, Kopfnoten, Kennzahlen und Panels, in beiden ausgelieferten Ansichten: kein Wert liegt unter 4,5:1. Der knappste ist die Marke „Nicht gefunden" im Prompt-Monitor mit 4,97:1 auf der Bildschirmansicht, gefolgt von 5,07:1 auf Papier.
 
 ---
 
@@ -103,11 +129,11 @@ Work Sans liegt als Variable Font base64-kodiert in `index.html`: latin-Schnitt,
 |---|---|---|
 | **Display** | Work Sans 600 | Wortmarke, Panel-Titel, KPI-Zahlen |
 | **UI / Fließtext** | Work Sans 400 | Tabellen, Beschreibungen, Buttons |
-| **Utility** | `SF Mono → Menlo → monospace` | Klassifizierungscodes, Zeitstempel, Achsen, Positionen |
+| **Utility** | `SF Mono → Menlo → monospace` | Versal-Labels, Achsen, Positionen, Zahlenspalten |
 
 Display-Elemente tragen 600, weil Work Sans in Versalien mit Laufweite bei 500 zu dünn wird. Die Monospace bleibt Systemschrift; sie trägt keine Markenbedeutung, sondern hält Zeitstempel und Zahlenspalten auf gleicher Breite. In `GUNMETAL` übernimmt sie zusätzlich die Display-Rolle.
 
-Der eingebettete Schnitt deckt Latin ab. Die wenigen Zeichen außerhalb davon (`Δ` in der Keyword-Tabelle, `◆` in der Klassifizierungsleiste) kommen aus der Systemschrift.
+Der eingebettete Schnitt deckt Latin ab. Das einzige Zeichen außerhalb davon (`Δ` in der Keyword-Tabelle) kommt aus der Systemschrift.
 
 **Skala** (1.25 Major Third): 11 · 12 · 13 · 15 · 19 · 24 · 34 px
 **Regeln:** Versal-Labels mit `0.14em` Laufweite · alle Zahlenspalten `tabular-nums` · Überschriften `text-wrap: balance`
@@ -116,19 +142,22 @@ Der eingebettete Schnitt deckt Latin ab. Die wenigen Zeichen außerhalb davon (`
 
 ## 5. Layout
 
-Ein Raster, vier Varianten. Die Varianten tauschen ausschließlich Tokens (Farbe, Radius, Schrift, Körnung), nie die Struktur. Deshalb bleibt jede Variante wartbar.
+Ein Raster, zwei Ansichten. Sie tauschen ausschließlich Tokens (Farbe, Radius, Körnung), nie die Struktur. Deshalb bleibt jede Ansicht wartbar.
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│ VERTRAULICH · FREIGABESTUFE 2 · 2026-08-12 16:38Z    [Design▾]│  Klassifizierungsleiste
+│ ROCFORTIS SIGNAL  Vollcrawl 98 Seiten [Erhebung][Ansicht▾][Ab]│  Kopf
 ├──────────────────────────────────────────────────────────────┤
-│ ROCFORTIS SIGNAL      Vollcrawl 98 Seiten          [Abmelden] │  Kopf
+│ ┌───────────────────────┐ ┌───────────────────────┐          │
+│ │ SEO Gesamtbewertung   │ │ GEO Gesamtbewertung   │          │  2 Kopfnoten
+│ │ 54/100 mit Messlatte  │ │ 55/100 mit Messlatte  │          │  links SEO, rechts GEO
+│ └───────────────────────┘ └───────────────────────┘          │
 ├──────────────────────────────────────────────────────────────┤
 │ ┌──────┐┌──────┐┌──────┐ ┌──────┐┌──────┐┌──────┐            │
 │ │ SEO  ││ SEO  ││ SEO  │ │ GEO  ││ GEO  ││ GEO  │            │  6 Kennzahl-Kacheln
-│ └──────┘└──────┘└──────┘ └──────┘└──────┘└──────┘            │  links SEO, rechts GEO
+│ └──────┘└──────┘└──────┘ └──────┘└──────┘└──────┘            │  die 3 kritischen Befunde
 ├───────────────────────────────────┬──────────────────────────┤
-│ Seitenbestand über Zeit           │ KI-Engines               │
+│ Sichtbarkeit über Zeit            │ KI-Engines               │
 │ (zwei Reihen, Doppelachse:        │ (Bereitschaft je Engine, │
 │  Seiten gesamt / Anteil EN)       │  Balken + Schwerpunkt)   │
 ├───────────────────────────────────┼──────────────────────────┤
@@ -137,13 +166,15 @@ Ein Raster, vier Varianten. Die Varianten tauschen ausschließlich Tokens (Farbe
 │ PROMPT-MONITOR: echte Suchanfragen, gefunden ja/nein          │  Signatur-Modul
 ├──────────────────────────────────────────────────────────────┤
 │ Technische Basis: Serverantwort · Ladezeit · CSS · Codes      │
+├──────────────────────────────────────────────────────────────┤
+│ WAS JETZT ZU TUN IST: Woche 1 · Woche 2 bis 3 · Monat 2       │  Maßnahmenplan
 └──────────────────────────────────────────────────────────────┘
-
-Das Raster ist unverändert das der ersten Fassung. Nur zwei Panel-Titel wurden
-angepasst, weil der alte Titel mit den erhobenen Daten eine Falschaussage wäre:
-aus „Sichtbarkeit über Zeit" wurde „Seitenbestand über Zeit", aus „Märkte &
-Regionen" wurde „Seitenbestand". Beide zeigen echte Messwerte.
 ```
+
+Gegenüber der ersten Fassung sind drei Dinge dazugekommen und eines entfallen:
+die beiden Kopfnoten, der Maßnahmenplan und eine Druckansicht sind neu, die
+Klassifizierungsleiste über dem Kopf und die Fußleiste sind weg. Der Umschalter
+ist dabei in den Kopf gewandert.
 
 **Links SEO, rechts GEO.** Die Trennung ist über die gesamte Seite konstant, damit der Blick sie nach dem ersten Scan nicht mehr suchen muss.
 
@@ -157,7 +188,9 @@ Regionen" wurde „Seitenbestand". Beide zeigen echte Messwerte.
 2. **Der Prompt-Monitor.** Das Modul, das es auf keinem SEO-Dashboard gibt: echte Suchanfragen, ob rocfortis.com in den Ergebnissen steht und welcher Wettbewerber stattdessen. Das ist der eigentliche GEO-Wert und passt exakt zum Überwachungs-Motiv.
 
    **Keine Angabe ist keine Null.** Wo ein Wert nicht erhoben werden konnte, steht „k. A." statt einer Schätzung. Betroffen sind die Spalten Δ und Volumen in der Keyword-Lage; beide brauchen Search-Console-Zugang. Die Zeitreihe im Diagramm stammt aus den Änderungsdaten der Sitemap, der einzigen Historie, die ohne fremde Zugänge messbar ist.
-3. **Die Klassifizierungsleiste.** Freigabestufe und laufender Zulu-Zeitstempel. Trägt echte Information (Sitzungskontext), ist keine Dekoration.
+3. **Der Maßnahmenplan.** Am Fuß der Seite steht nicht nur, was falsch ist, sondern was zu tun ist: gestaffelt nach Woche 1, Woche 2 bis 3 und Monat 2, je mit Aufwand und, wo im Audit belegt, mit Wirkung. Damit ist das Lagebild ein Entscheidungswerkzeug und kein Befundbericht.
+
+Eine frühere Klassifizierungsleiste mit Freigabestufe und laufendem Zulu-Zeitstempel wurde entfernt, ebenso die Fußleiste. Beide trugen nur Angaben, die ohnehin im Kopf stehen.
 
 ---
 
@@ -226,7 +259,7 @@ Bei jeder Neuerhebung wird nur dieses Objekt ersetzt. Layout, Balken und Tabelle
 
 ## 9. Qualitätsanforderungen
 
-- [x] Kontrast ≥ 4.5:1 für Fließtext in allen vier Varianten
+- [x] Kontrast ≥ 4.5:1 für Fließtext in beiden ausgelieferten Ansichten
 - [x] Tastaturbedienbar, Fokus überall sichtbar
 - [x] `prefers-reduced-motion` respektiert
 - [x] Keine Emoji als Icons, stattdessen Inline-SVG
